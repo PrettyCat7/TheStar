@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "973729504091",
+    "project_id": "thestar-ad68d",
+    "storage_bucket": "thestar-ad68d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973729504091:android:ed3ee21e98ebf03751987e",
+        "android_client_info": {
+          "package_name": "com.example.thestar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9yFOKjsG4UEV-4YbxV5LPLRzwyRzVhcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
