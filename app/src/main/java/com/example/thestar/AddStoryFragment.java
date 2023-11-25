@@ -2,13 +2,21 @@ package com.example.thestar;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +28,7 @@ public class AddStoryFragment extends Fragment {
     private TextView tvAdd;
     private EditText etnameAdd,etdesAdd,etgenreAdd,etRating;
     private FirebaseServices fbs;
+    private Button btnAdd;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,5 +75,58 @@ public class AddStoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_story, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        connectComponents();
+    }
+
+    private void connectComponents() {
+        fbs=FirebaseServices.getInstance();
+        etnameAdd=getView().findViewById(R.id.etnameadd);
+        etdesAdd=getView().findViewById(R.id.etdesadd);
+        etgenreAdd=getView().findViewById(R.id.etgenadd);
+        etRating=getView().findViewById(R.id.etrateadd);
+        btnAdd=getView().findViewById(R.id.btnAdd);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String Name = etnameAdd.getText().toString();
+                String Description = etdesAdd.getText().toString();
+                String Genre = etgenreAdd.getText().toString();
+                String Rating = etRating.getText().toString();
+
+                if (Name.trim().isEmpty()||Description.trim().isEmpty()||Genre.trim().isEmpty()||Rating.trim().isEmpty() ){
+
+                    Toast.makeText(getActivity(), "Some Of Your Fields Are Empty ):", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+
+                      Story str = new Story(Name,Description,Genre, Rating);
+                      fbs.getFire().collection("Stories").add(str).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                          @Override
+                          public void onSuccess(DocumentReference documentReference) {
+                              Toast.makeText(getActivity(), "Successfully Added Your Story (: ", Toast.LENGTH_SHORT).show();
+                          }
+                      }).addOnFailureListener(new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                              Log.e("Fail Add Story :",e.getMessage());
+                          }
+                      });
+                }
+            }
+        });
+
+
+
+
+
+
     }
 }
