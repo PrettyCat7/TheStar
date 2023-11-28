@@ -14,7 +14,6 @@ public class Story {
         Genre = genre;
         Rating = rating;
     }
-
     public String getName() {
         return Name;
     }
@@ -45,5 +44,15 @@ public class Story {
 
     public void setRating(String rating) {
         Rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Story{" +
+                "Name='" + Name + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Genre='" + Genre + '\'' +
+                ", Rating='" + Rating + '\'' +
+                '}';
     }
 }
