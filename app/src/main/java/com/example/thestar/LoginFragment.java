@@ -4,17 +4,20 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.rpc.Help;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class LoginFragment extends Fragment {
 
+    private TextView ForgotLink,SignUpLink;
     private EditText userlogin,passwordlogin;
     private Button btnlogin;
     private FirebaseServices fbs;
@@ -81,6 +85,20 @@ public class LoginFragment extends Fragment {
         userlogin=getView().findViewById(R.id.etusernamelogin);
         passwordlogin=getView().findViewById(R.id.etpasswordlogin);
         btnlogin=getView().findViewById(R.id.btnlogin);
+        ForgotLink=getView().findViewById(R.id.tvForgotLogin);
+        SignUpLink=getView().findViewById(R.id.tvSignupoLogin);
+        SignUpLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoSignUpFragment();
+            }
+        });
+        ForgotLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoForgotPasswordFragment();
+            }
+        });
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,5 +125,17 @@ public class LoginFragment extends Fragment {
             };
         });
 
+    }
+
+    private void gotoSignUpFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new SignUpFragment());
+        ft.commit();
+    }
+
+    private void gotoForgotPasswordFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
+        ft.commit();
     }
 }
