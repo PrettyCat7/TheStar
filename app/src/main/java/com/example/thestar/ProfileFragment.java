@@ -1,12 +1,23 @@
 package com.example.thestar;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +25,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+
+   private TextView tvPro;
+    private ImageView imPron;
+    ActivityResultLauncher<Intent> resultLauncher;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,10 +73,52 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+imPron=getView().findViewById(R.id.ivProfilepicture);
+imPron.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+    }
+});
+
+
+
+    }
+
+    private void pickImage(){
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        resultLauncher.launch(intent);
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+    private void regesterresult(){
+
+        resultLauncher= registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                       try {
+                           Uri imageUri = result.getData().getData();
+                             imPron.setImageURI(imageUri);
+                       }catch (Exception e ){
+                           Toast.makeText(getActivity(), "No Image Selected ", Toast.LENGTH_SHORT).show();
+                       }
+                    }
+                }
+        );
+
+
     }
 }
