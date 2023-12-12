@@ -90,6 +90,7 @@ public class LoginFragment extends Fragment {
         SignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 gotoSignUpFragment();
             }
         });
@@ -115,16 +116,24 @@ public class LoginFragment extends Fragment {
 
                     if (task.isSuccessful()){
 
-
+                       gotoAddStoryFragment();
+                        fbs = FirebaseServices.getInstance();
+                        Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
                 }
                     else {
 
+                        Toast.makeText(getActivity(), "failed to login! check user or password", Toast.LENGTH_SHORT).show();
                     }
                     }
                 });
             };
         });
+    }
 
+    private void gotoAddStoryFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AddStoryFragment());
+        ft.commit();
     }
 
     private void gotoSignUpFragment() {

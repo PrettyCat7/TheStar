@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -27,7 +25,7 @@ import android.widget.Toast;
 public class ProfileFragment extends Fragment {
 
 
-   private TextView tvPro;
+
     private ImageView imPron;
     ActivityResultLauncher<Intent> resultLauncher;
 
@@ -78,20 +76,23 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-imPron=getView().findViewById(R.id.ivProfilepicture);
-imPron.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
+        imPron=getView().findViewById(R.id.ivProfilepicture);
 
-    }
-});
+               regesterresult();
+
+          imPron.setOnClickListener(view -> pickImage());
+
+};
 
 
 
-    }
+
 
     private void pickImage(){
-        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        Intent intent = null;
+        if (android.os.ext.SdkExtensions.getExtensionVersion(android.os.Build.VERSION_CODES.R) >= 2) {
+            intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        }
         resultLauncher.launch(intent);
     }
 
@@ -110,6 +111,7 @@ imPron.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                        try {
+                           assert result.getData() != null;
                            Uri imageUri = result.getData().getData();
                              imPron.setImageURI(imageUri);
                        }catch (Exception e ){

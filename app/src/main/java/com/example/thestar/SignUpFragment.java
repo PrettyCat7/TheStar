@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -99,15 +100,23 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-
+                                          gotoaddstoryfragment();
+                            Toast.makeText(getActivity(), "successfully added your data", Toast.LENGTH_SHORT).show();
                         }
                         else {
-
+                            Toast.makeText(getActivity(), "unsuccessfully added your data", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
             }
         });
+    }
+
+    private void gotoaddstoryfragment() {
+
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
     }
 }

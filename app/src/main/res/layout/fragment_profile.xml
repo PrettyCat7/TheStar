@@ -26,15 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Profile"
-            android:textColor="#D28585"
-            android:textColorHint="#B39DDB"
             android:scaleType="centerCrop"
-            android:adjictViewBounds="true"
+            android:text="@string/profile"
+            android:textColor="#D28585"
+            android:textColorHint="#9071C8"
             android:textSize="60sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:shapeAppearance="@style/RoundShape.App.8percent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
