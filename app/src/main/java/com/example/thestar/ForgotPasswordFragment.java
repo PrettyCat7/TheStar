@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +27,7 @@ public class ForgotPasswordFragment extends Fragment {
    private EditText etforgotp;
    private Button btnforgotp;
    private FirebaseServices fbs;
+   private FloatingActionButton FAB;
 
 
 
@@ -82,6 +85,17 @@ public class ForgotPasswordFragment extends Fragment {
         fbs=FirebaseServices.getInstance();
         etforgotp= getView().findViewById(R.id.etforgot);
         btnforgotp=getView().findViewById(R.id.btnforgot);
+        FAB=getView().findViewById(R.id.fbBack);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.frameLayout,new LoginFragment());
+                    ft.commit();
+
+            }
+        });
         btnforgotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +112,6 @@ public class ForgotPasswordFragment extends Fragment {
               });
             }
         });
-
+        ((MainActivity)getActivity()).pushFragment(new ForgotPasswordFragment());
     }
 }

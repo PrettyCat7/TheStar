@@ -1,11 +1,15 @@
 package com.example.thestar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
+    private Stack<Fragment> fragmentStack = new Stack<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,4 +24,11 @@ public class MainActivity extends AppCompatActivity {
        ft.commit();
 
    }
+    public void pushFragment(Fragment fragment) {
+        fragmentStack.push(fragment);
+        /*
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit(); */
+    }
 }

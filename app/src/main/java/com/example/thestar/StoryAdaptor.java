@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class StoryAdaptor extends RecyclerView.Adapter<StoryAdaptor.MyViewHolder> {
+public class  StoryAdaptor extends RecyclerView.Adapter<StoryAdaptor.MyViewHolder> {
     Context context;
     ArrayList<Story> strList;
     private FirebaseServices fbs;

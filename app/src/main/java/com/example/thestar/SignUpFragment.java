@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 
 /**
@@ -28,6 +29,7 @@ public class SignUpFragment extends Fragment {
     private EditText etUsername , etPassword , etPhone;
     private Button btnSignup;
     private FirebaseServices fbs;
+    private FloatingActionButton FAB;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -84,9 +86,11 @@ public class SignUpFragment extends Fragment {
         super.onStart();
         fbs=FirebaseServices.getInstance();
         etUsername= getView().findViewById(R.id.etusername);
-        etPhone= getView().findViewById(R.id.etphone);
         etPassword= getView().findViewById(R.id.etpassword);
         btnSignup= getView().findViewById(R.id.btnsignup);
+        FAB=getView().findViewById(R.id.fbBackS);
+
+
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
