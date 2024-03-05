@@ -26,7 +26,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class SignUpFragment extends Fragment {
 
-    private EditText etUsername , etPassword , etPhone;
+    private EditText etUsername , etPassword , etPhone , etsignupemail;
     private Button btnSignup;
     private FirebaseServices fbs;
     private FloatingActionButton FAB;
@@ -88,19 +88,28 @@ public class SignUpFragment extends Fragment {
         etUsername= getView().findViewById(R.id.etusername);
         etPassword= getView().findViewById(R.id.etpassword);
         btnSignup= getView().findViewById(R.id.btnsignup);
+        etsignupemail =getView().findViewById(R.id.etSignupemail);
         FAB=getView().findViewById(R.id.fbBackS);
 
+          FAB.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
 
+                  FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                  ft.replace(R.id.frameLayout,new LoginFragment());
+                  ft.commit();
+              }
+          });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                String phone = etPhone.getText().toString();
-                if (password.trim().isEmpty()&&username.trim().isEmpty()&&phone.trim().isEmpty()) {
+                String Email = etsignupemail.getText().toString();
+                if (password.trim().isEmpty()||username.trim().isEmpty()||Email.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show(); return;
                 }
-                fbs.getAuth().createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().createUserWithEmailAndPassword(Email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
@@ -120,7 +129,7 @@ public class SignUpFragment extends Fragment {
     private void gotoaddstoryfragment() {
 
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.replace(R.id.frameLayout,new AddStoryFragment());
         ft.commit();
     }
 }

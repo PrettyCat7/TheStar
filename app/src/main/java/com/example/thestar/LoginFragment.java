@@ -106,10 +106,12 @@ public class LoginFragment extends Fragment {
 
                String username= userlogin.toString().toString();
                String password = passwordlogin.toString().toString();
-               if (username.trim().isEmpty()&&password.trim().isEmpty()){
-                   Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show() ;
-               return;
-            }
+
+               if (username.trim().isEmpty() || password.trim().isEmpty()) {
+                   Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show();
+                   return;
+               }
+
             fbs.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
