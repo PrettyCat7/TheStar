@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -112,6 +113,9 @@ public class AddStoryFragment extends Fragment {
                           @Override
                           public void onSuccess(DocumentReference documentReference) {
                               Toast.makeText(getActivity(), "Successfully Added Your Story (: ", Toast.LENGTH_SHORT).show();
+                              FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                              ft.replace(R.id.frameLayout,new AllStoriesFragment());
+                              ft.commit();
                           }
                       }).addOnFailureListener(new OnFailureListener() {
                           @Override
