@@ -1,7 +1,6 @@
 package com.example.thestar;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +31,13 @@ public class AddStoryFragment extends Fragment {
 
     private TextView tvAdd;
     private EditText etnameAdd,etdesAdd,etgenreAdd,etRating;
+
     private FirebaseServices fbs;
     private Button btnAdd;
     private Utlis utlis;
+
+    private ImageView imgstr;
+
     private static final int GALLERY_REQUEST_CODE = 123;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,12 +81,14 @@ public class AddStoryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_story, container, false);
     }
-
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -96,7 +102,13 @@ public class AddStoryFragment extends Fragment {
         etgenreAdd=getView().findViewById(R.id.etgenadd);
         etRating=getView().findViewById(R.id.etrateadd);
         btnAdd=getView().findViewById(R.id.btnAdd);
+        imgstr=getView().findViewById(R.id.IVstr);
 
+        imgstr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {openGallery();}
+
+        });
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,10 +142,7 @@ public class AddStoryFragment extends Fragment {
                       });
                 }
             }
-            private void openGallery() {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-            }
+
 
 
         });

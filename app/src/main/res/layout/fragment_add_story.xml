@@ -15,7 +15,7 @@
             android:id="@+id/tvadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="4dp"
             android:text="Add A Story"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,12 +77,24 @@
             android:id="@+id/btnAdd"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="136dp"
             android:text="Add"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etrateadd" />
+
+        <ImageView
+            android:id="@+id/IVstr"
+            android:layout_width="90dp"
+            android:layout_height="92dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etrateadd"
+            tools:src="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
