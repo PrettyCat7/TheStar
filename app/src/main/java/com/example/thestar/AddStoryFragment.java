@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,7 +101,7 @@ public class AddStoryFragment extends Fragment {
         etnameAdd=getView().findViewById(R.id.etnameadd);
         etdesAdd=getView().findViewById(R.id.etdesadd);
         etgenreAdd=getView().findViewById(R.id.etgenadd);
-        etRating=getView().findViewById(R.id.etrateadd);
+        etRating=getView().findViewById(R.id.etrating);
         btnAdd=getView().findViewById(R.id.btnAdd);
         imgstr=getView().findViewById(R.id.IVstr);
 

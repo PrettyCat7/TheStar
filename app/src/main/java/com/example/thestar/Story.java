@@ -1,5 +1,7 @@
 package com.example.thestar;
 
+import android.widget.ImageView;
+
 import java.util.jar.Attributes;
 
 public class Story {
@@ -7,13 +9,20 @@ public class Story {
     private String Description;
     private String Genre;
     private String Rating ;
+    private ImageView Image;
 
     public Story(String name, String description, String genre, String rating) {
         Name = name;
         Description = description;
         Genre = genre;
         Rating = rating;
+        Image= Image;
     }
+
+    public ImageView getImage() {return Image;}
+
+    public void setImage(ImageView image) {Image = image;}
+
     public String getName() {
         return Name;
     }
@@ -53,6 +62,7 @@ public class Story {
                 ", Description='" + Description + '\'' +
                 ", Genre='" + Genre + '\'' +
                 ", Rating='" + Rating + '\'' +
+                ", Image=" + Image +
                 '}';
     }
 }

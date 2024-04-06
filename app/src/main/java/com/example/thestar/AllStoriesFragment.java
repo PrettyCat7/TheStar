@@ -30,7 +30,7 @@ public class AllStoriesFragment extends Fragment {
     private FirebaseServices fbs;
     private ArrayList<Story> strs;
     private RecyclerView rvRests;
-    private StoryAdaptor adapter;
+    private StoryAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,7 +85,7 @@ public class AllStoriesFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         strs = new ArrayList<>();
         rvRests = getView().findViewById(R.id.rvStory);
-        adapter = new StoryAdaptor (getActivity(), strs);
+        adapter = new StoryAdapter(getActivity(), strs);
         rvRests.setAdapter(adapter);
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
