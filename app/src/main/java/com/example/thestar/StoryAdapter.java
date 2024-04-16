@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
             }
         });
         if (str.getImage() == null || str.getImage().isEmpty()) {
-            Picasso.get().load(R.drawable.ic_fav).into(holder.ivstr);
+            Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.ivstr);
         } else {
             Picasso.get().load(str.getImage()).into(holder.ivstr);
         }

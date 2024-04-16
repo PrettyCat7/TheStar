@@ -9,7 +9,7 @@ public class Story {
     private String Description;
     private String Genre;
     private String Rating ;
-    private ImageView Image;
+    private String Image;
 
     public Story(String name, String description, String genre, String rating) {
         Name = name;
@@ -19,9 +19,13 @@ public class Story {
         Image= Image;
     }
 
-    public ImageView getImage() {return Image;}
+    public String getImage() {
+        return Image;
+    }
 
-    public void setImage(ImageView image) {Image = image;}
+    public void setImage(String image) {
+        Image = image;
+    }
 
     public String getName() {
         return Name;

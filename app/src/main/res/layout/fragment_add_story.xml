@@ -16,22 +16,22 @@
             android:id="@+id/tvadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="31dp"
-            android:layout_marginEnd="26dp"
+            android:layout_marginTop="40dp"
             android:text="Add A Story"
             android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="@+id/etnameadd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etnameadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="35dp"
             android:ems="10"
             android:hint="Name"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvadd" />
@@ -40,12 +40,12 @@
             android:id="@+id/etdesadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="1dp"
             android:ems="10"
             android:hint="Description"
             android:inputType="textMultiLine"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/etnameadd"
             app:layout_constraintTop_toBottomOf="@+id/etnameadd" />
 
@@ -53,58 +53,63 @@
             android:id="@+id/etgenadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginBottom="33dp"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="Genre"
             android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/etrating"
-            app:layout_constraintEnd_toEndOf="@+id/etdesadd" />
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etdesadd" />
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="624dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
             android:text="Add"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/IVstr" />
 
         <ImageView
             android:id="@+id/IVstr"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="43dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvpicture"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tvpicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="30dp"
             android:text="Insert a Picture"
             android:textColorLink="#B82626"
-            app:layout_constraintBottom_toTopOf="@+id/IVstr"
-            app:layout_constraintEnd_toEndOf="@+id/IVstr" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etrating" />
 
         <EditText
             android:id="@+id/etrating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="19dp"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="Rating"
             android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvpicture"
-            app:layout_constraintStart_toStartOf="@+id/etgenadd" />
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etgenadd" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

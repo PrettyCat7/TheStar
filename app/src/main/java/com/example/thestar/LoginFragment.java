@@ -121,12 +121,13 @@ public class LoginFragment extends Fragment {
                        gotoAddStoryFragment();
                         fbs = FirebaseServices.getInstance();
                         Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
-                }
+
+                    }
                     else {
 
                         Toast.makeText(getActivity(), "failed to login! check user or password", Toast.LENGTH_SHORT).show();
                     }
-                    }
+                }
                 });
             };
         });

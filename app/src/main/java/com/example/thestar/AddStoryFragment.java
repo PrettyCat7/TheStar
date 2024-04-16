@@ -1,9 +1,11 @@
 package com.example.thestar;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -30,12 +32,12 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class AddStoryFragment extends Fragment {
 
+    Utlis utlis;
     private TextView tvAdd;
     private EditText etnameAdd,etdesAdd,etgenreAdd,etRating;
 
     private FirebaseServices fbs;
     private Button btnAdd;
-    private Utlis utlis;
 
     private ImageView imgstr;
 
@@ -86,10 +88,26 @@ public class AddStoryFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_story, container, false);
     }
+
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(data!=null && requestCode==GALLERY_REQUEST_CODE){
+
+            Uri uriPhoto = Uri.parse(data.toURI());
+
+            imgstr.setImageURI(uriPhoto);
+            
+        }
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -97,6 +115,8 @@ public class AddStoryFragment extends Fragment {
     }
 
     private void connectComponents() {
+
+        utlis = Utlis.getInstance();
         fbs=FirebaseServices.getInstance();
         etnameAdd=getView().findViewById(R.id.etnameadd);
         etdesAdd=getView().findViewById(R.id.etdesadd);
@@ -110,6 +130,7 @@ public class AddStoryFragment extends Fragment {
             public void onClick(View v) {openGallery();}
 
         });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +139,7 @@ public class AddStoryFragment extends Fragment {
                 String Description = etdesAdd.getText().toString();
                 String Genre = etgenreAdd.getText().toString();
                 String Rating = etRating.getText().toString();
+
 
                 if (Name.trim().isEmpty()||Description.trim().isEmpty()||Genre.trim().isEmpty()||Rating.trim().isEmpty() ){
 
