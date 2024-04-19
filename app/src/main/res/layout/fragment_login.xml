@@ -14,14 +14,14 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/etusernamelogin"
+            android:id="@+id/etemaillogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="163dp"
             android:ems="10"
-            android:hint="User Name"
+            android:hint="Email"
             android:inputType="text"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,10 +34,10 @@
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etusernamelogin" />
+            app:layout_constraintTop_toBottomOf="@+id/etemaillogin" />
 
         <Button
             android:id="@+id/btnlogin"

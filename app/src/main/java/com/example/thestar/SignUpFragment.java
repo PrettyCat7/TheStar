@@ -113,7 +113,7 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                                          gotoaddstoryfragment();
+                                          gotoallstoryfragment();
                             Toast.makeText(getActivity(), "successfully added your data", Toast.LENGTH_SHORT).show();
                         }
                         else {
@@ -126,10 +126,10 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void gotoaddstoryfragment() {
+    private void gotoallstoryfragment() {
 
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AddStoryFragment());
+        ft.replace(R.id.frameLayout,new AllStoriesFragment());
         ft.commit();
     }
 }

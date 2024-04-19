@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.rpc.Help;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +26,7 @@ import com.google.rpc.Help;
 public class LoginFragment extends Fragment {
 
     private TextView ForgotLink,SignUpLink;
-    private EditText userlogin,passwordlogin;
+    private EditText emaillogin,passwordlogin;
     private Button btnlogin;
     private FirebaseServices fbs;
 
@@ -82,7 +81,7 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         fbs=FirebaseServices.getInstance();
-        userlogin=getView().findViewById(R.id.etusernamelogin);
+        emaillogin=getView().findViewById(R.id.etemaillogin);
         passwordlogin=getView().findViewById(R.id.etpasswordlogin);
         btnlogin=getView().findViewById(R.id.btnlogin);
         ForgotLink=getView().findViewById(R.id.tvForgotLogin);
@@ -104,28 +103,28 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-               String username= userlogin.toString().toString();
+               String email= emaillogin.toString().toString();
                String password = passwordlogin.toString().toString();
 
-               if (username.trim().isEmpty() || password.trim().isEmpty()) {
+               if (email.trim().isEmpty() || password.trim().isEmpty()) {
                    Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show();
                    return;
                }
 
-            fbs.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            fbs.getAuth().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if (task.isSuccessful()){
 
-                       gotoAddStoryFragment();
                         fbs = FirebaseServices.getInstance();
                         Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
+                        gotoallstoriesfragment();
 
                     }
                     else {
 
-                        Toast.makeText(getActivity(), "failed to login! check user or password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "failed to login! check Email or password", Toast.LENGTH_SHORT).show();
                     }
                 }
                 });
@@ -148,6 +147,11 @@ public class LoginFragment extends Fragment {
     private void gotoForgotPasswordFragment() {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
+        ft.commit();
+    }
+    private void gotoallstoriesfragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllStoriesFragment());
         ft.commit();
     }
 }
