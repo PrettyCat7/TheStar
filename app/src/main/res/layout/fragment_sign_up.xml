@@ -14,27 +14,29 @@
             android:id="@+id/etpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="276dp"
+            android:layout_marginTop="160dp"
             android:ems="10"
             android:hint="Enter Password"
             android:inputType="textPassword"
             android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnsignup"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.397" />
 
         <Button
             android:id="@+id/btnsignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="288dp"
             android:text="Sign Up"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.683" />
 
         <EditText
             android:id="@+id/etusername"
@@ -55,20 +57,31 @@
             android:id="@+id/etSignupemail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="97dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginEnd="105dp"
-            android:layout_marginBottom="57dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
             android:ems="10"
             android:hint="Enter Email"
             android:inputType="textEmailAddress"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/btnsignup"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etpassword"
-            app:layout_constraintVertical_bias="0.018" />
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fbBackS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/round_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -93,12 +93,7 @@ public class SignUpFragment extends Fragment {
 
           FAB.setOnClickListener(new View.OnClickListener() {
               @Override
-              public void onClick(View view) {
-
-                  FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                  ft.replace(R.id.frameLayout,new LoginFragment());
-                  ft.commit();
-              }
+              public void onClick(View view) {gotologinfragment();}
           });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +104,7 @@ public class SignUpFragment extends Fragment {
                 if (password.trim().isEmpty()||username.trim().isEmpty()||Email.trim().isEmpty()) {
                     Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show(); return;
                 }
-                fbs.getAuth().createUserWithEmailAndPassword(Email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().createUserWithEmailAndPassword(Email,password).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
@@ -132,4 +127,11 @@ public class SignUpFragment extends Fragment {
         ft.replace(R.id.frameLayout,new AllStoriesFragment());
         ft.commit();
     }
+    private void gotologinfragment() {
+
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
+    }
+
 }

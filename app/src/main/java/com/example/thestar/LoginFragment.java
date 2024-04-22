@@ -26,7 +26,7 @@ import com.google.firebase.auth.AuthResult;
 public class LoginFragment extends Fragment {
 
     private TextView ForgotLink,SignUpLink;
-    private EditText emaillogin,passwordlogin;
+    private EditText usernamel,passwordlogin;
     private Button btnlogin;
     private FirebaseServices fbs;
 
@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         fbs=FirebaseServices.getInstance();
-        emaillogin=getView().findViewById(R.id.etemaillogin);
+        usernamel=getView().findViewById(R.id.etemaillogin);
         passwordlogin=getView().findViewById(R.id.etpasswordlogin);
         btnlogin=getView().findViewById(R.id.btnlogin);
         ForgotLink=getView().findViewById(R.id.tvForgotLogin);
@@ -103,23 +103,23 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-               String email= emaillogin.toString().toString();
+               String username= usernamel.toString().toString();
                String password = passwordlogin.toString().toString();
 
-               if (email.trim().isEmpty() || password.trim().isEmpty()) {
+               if (username.trim().isEmpty() || password.trim().isEmpty()) {
                    Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show();
                    return;
                }
 
-            fbs.getAuth().signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            fbs.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if (task.isSuccessful()){
 
-                        fbs = FirebaseServices.getInstance();
+                        fbs = FirebaseServices.reloadInstance();
+                           gotoallstoriesfragment();
                         Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
-                        gotoallstoriesfragment();
 
                     }
                     else {

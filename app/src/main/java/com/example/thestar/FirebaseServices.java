@@ -39,6 +39,11 @@ public class FirebaseServices {
         return storage;
     }
 
+    public static FirebaseServices reloadInstance(){
+        instance=new FirebaseServices();
+        return instance;
+    }
+
     public  FirebaseServices() {
         auth = FirebaseAuth.getInstance();
         fire = FirebaseFirestore.getInstance();
