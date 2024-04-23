@@ -1,5 +1,6 @@
 package com.example.thestar;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -88,9 +89,7 @@ public class LoginFragment extends Fragment {
         SignUpLink=getView().findViewById(R.id.tvSignupoLogin);
         SignUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                gotoSignUpFragment();
+            public void onClick(View view) {gotoSignUpFragment();
             }
         });
         ForgotLink.setOnClickListener(new View.OnClickListener() {
@@ -99,37 +98,33 @@ public class LoginFragment extends Fragment {
                 gotoForgotPasswordFragment();
             }
         });
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               String username= usernamel.toString().toString();
-               String password = passwordlogin.toString().toString();
-
-               if (username.trim().isEmpty() || password.trim().isEmpty()) {
-                   Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show();
-                   return;
-               }
-
-            fbs.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
+            btnlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                public void onClick(View view) {
+                    String username=usernamel.getText().toString();
+                    String password=passwordlogin.getText().toString();
 
-                    if (task.isSuccessful()){
+                    if(username.trim().isEmpty()||password.trim().isEmpty()){
+                        Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
+                        return;
 
-                        fbs = FirebaseServices.reloadInstance();
-                           gotoallstoriesfragment();
-                        Toast.makeText(getActivity(), "Welcome ", Toast.LENGTH_SHORT).show();
 
                     }
-                    else {
+                    fbs.getAuth().signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+                                gotoallstoriesfragment();
+                            }
+                            else {
+                                Toast.makeText(getActivity(), "check your data", Toast.LENGTH_SHORT).show();
+                            }
 
-                        Toast.makeText(getActivity(), "failed to login! check Email or password", Toast.LENGTH_SHORT).show();
-                    }
+                        }
+                    });
                 }
-                });
-            };
-        });
+            });
     }
 
     private void gotoAddStoryFragment() {

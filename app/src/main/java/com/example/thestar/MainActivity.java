@@ -15,7 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gotoLoginfragment();
+        //gotoLoginfragment();
+        go();
     }
    public void gotoLoginfragment(){
 
@@ -24,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
        ft.commit();
 
    }
+   public void go(){
+
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+        ft.commit();
+
+    }
     public void pushFragment(Fragment fragment) {
         fragmentStack.push(fragment);
         /*
