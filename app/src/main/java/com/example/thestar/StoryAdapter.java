@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 
@@ -28,9 +29,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View v= LayoutInflater.from(context).inflate(R.layout.str_item,parent,false);
-        return  new MyViewHolder(v);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.str_item, parent, false);
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -52,21 +53,23 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
             Picasso.get().load(str.getImage()).into(holder.ivstr);
         }
     }
+
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return strList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvDescription, tvGenre, tvRating ;
-        ImageView ivstr ;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView tvName, tvDescription, tvGenre, tvRating;
+        ImageView ivstr;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName=itemView.findViewById(R.id.tvNameRestItem);
-            tvDescription=itemView.findViewById(R.id.tvDescriptionRestItem);
-            tvGenre=itemView.findViewById(R.id.etgenadd);
-            tvRating=itemView.findViewById(R.id.etrating);
-            ivstr=itemView.findViewById(R.id.IVstr);
+            tvName = itemView.findViewById(R.id.tvNameRestItem);
+            tvDescription = itemView.findViewById(R.id.tvDescriptionRestItem);
+            tvGenre = itemView.findViewById(R.id.etgenadd);
+            tvRating = itemView.findViewById(R.id.etrating);
+            ivstr = itemView.findViewById(R.id.IVstr);
 
         }
     }
@@ -74,6 +77,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }

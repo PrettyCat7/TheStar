@@ -3,6 +3,7 @@ package com.example.thestar;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,9 +17,12 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
 public class AllStoriesFragment extends Fragment {
 
     private FirebaseServices fbs;
-    private ArrayList<Story> list, filteredList;
+    private ArrayList<Story> storieslist, filteredList;
     private RecyclerView rvRests;
     private StoryAdapter adapter;
     private SearchView srchView;
@@ -94,56 +98,145 @@ public class AllStoriesFragment extends Fragment {
     private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
         fbs = FirebaseServices.getInstance();
+        /*if (fbs.getAuth().getCurrentUser() == null)
+            fbs.setCurrentUser(fbs.getCurrentObjectUser()); */
+        storieslist = new ArrayList<>();
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
-        list = new ArrayList<>();
+        storieslist = getStories();
+        adapter = new StoryAdapter(getActivity(), storieslist);
         filteredList = new ArrayList<>();
-        adapter = new StoryAdapter(getActivity(), list);
-        rvRests.setAdapter(adapter);
         adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
-                String selectedItem = list.get(position).getName();
+                // Handle item click here
+                String selectedItem = storieslist.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                args.putParcelable("car", storieslist.get(position)); // or use Parcelable for better performance
+                StoriesDetails sd = new StoriesDetails();
+                sd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,sd);
                 ft.commit();
-
             }
         });
-        fbs.getFire().collection("stories").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot dataSnapshot : queryDocumentSnapshots.getDocuments()) {
-                    Story story = dataSnapshot.toObject(Story.class);
-                    list.add(story);
-                }
-
-
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-
         srchView = getView().findViewById(R.id.srchView);
-           srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-           });
+        srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                applyFilter(query);
+                return false;
+            }
 
-
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //applyFilter(newText);
+                return false;
+            }
+        });
+        //((MainActivity)getActivity()).pushFragment(new CarsListFragment());
 
     }
+    private void applyFilter(String query) {
+        // TODO: add onBackspace - old and new query
+        if (query.trim().isEmpty())
+        {
+            adapter = new StoryAdapter(getContext(), storieslist);
+            rvRests.setAdapter(adapter);
+            //myAdapter.notifyDataSetChanged();
+            return;
+        }
+        filteredList.clear();
+        for(Story story : filteredList)
+        {
+            if (story.getName().toLowerCase().contains(query.toLowerCase()) ||
+                    story.getDescription().toLowerCase().contains(query.toLowerCase()) ||
+                    story.getGenre().toLowerCase().contains(query.toLowerCase()) ||
+                    story.getRating().toLowerCase().contains(query.toLowerCase()) ||
+                    story.getImage().toLowerCase().contains(query.toLowerCase()))
+            {
+                filteredList.add(story);
+            }
+        }
+        if (filteredList.size() == 0)
+        {
+            showNoDataDialogue();
+            return;
+        }
+        adapter = new StoryAdapter(getContext(), filteredList);
+        rvRests.setAdapter(adapter);
+
+       /*
+        myAdapter= new CarListAdapter2(getActivity(),filteredList);
+        recyclerView.setAdapter(myAdapter); */
+
+        adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                /*
+                // Handle item click here
+                String selectedItem = filteredList.get(position).getName();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("story", filteredList.get(position)); // or use Parcelable for better performance
+                CarDetailsFragment cd = new CarDetailsFragment();
+                cd.setArguments(args);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,cd);
+                ft.commit(); */
+            }
+        });
+    }
+
+    private void showNoDataDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("No Results");
+        builder.setMessage("Try again!");
+        builder.show();
+    }
+
+
+
+    public void gotoProfileFragment() {
+        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new ProfileFragment());
+        ft.commit();
+    }
+
+    public ArrayList<Story> getStories()
+    {
+        ArrayList<Story> stories = new ArrayList<>();
+
+        try {
+            stories.clear();
+            fbs.getFire().collection("cars2")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    stories.add(document.toObject(Story.class));
+                                }
+
+                                StoryAdapter adapter = new StoryAdapter(getActivity(), storieslist);
+                                rvRests.setAdapter(adapter);
+                                //addUserToCompany(companies, user);
+                            } else {
+                                //Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+        }
+        catch (Exception e)
+        {
+            Log.e("getCompaniesMap(): ", e.getMessage());
+        }
+
+        return stories;
+    }
+
+
 }
 

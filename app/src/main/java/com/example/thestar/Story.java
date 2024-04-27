@@ -1,10 +1,14 @@
 package com.example.thestar;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import java.util.jar.Attributes;
 
-public class Story {
+public class Story implements Parcelable {
     private String Name;
     private String Description;
     private String Genre;
@@ -18,6 +22,26 @@ public class Story {
         Rating = rating;
         Image= Image;
     }
+
+    protected Story(Parcel in) {
+        Name = in.readString();
+        Description = in.readString();
+        Genre = in.readString();
+        Rating = in.readString();
+        Image = in.readString();
+    }
+
+    public static final Creator<Story> CREATOR = new Creator<Story>() {
+        @Override
+        public Story createFromParcel(Parcel in) {
+            return new Story(in);
+        }
+
+        @Override
+        public Story[] newArray(int size) {
+            return new Story[size];
+        }
+    };
 
     public String getImage() {
         return Image;
@@ -68,5 +92,19 @@ public class Story {
                 ", Rating='" + Rating + '\'' +
                 ", Image=" + Image +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(Name);
+        parcel.writeString(Description);
+        parcel.writeString(Genre);
+        parcel.writeString(Rating);
+        parcel.writeString(Image);
     }
 }
