@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,9 +31,11 @@ import java.util.ArrayList;
 public class AllStoriesFragment extends Fragment {
 
     private FirebaseServices fbs;
-    private ArrayList<Story> strs;
+    private ArrayList<Story> list, filteredList;
     private RecyclerView rvRests;
     private StoryAdapter adapter;
+    private SearchView srchView;
+    private Button btnspinner;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,29 +87,63 @@ public class AllStoriesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fbs = FirebaseServices.getInstance();
-        strs = new ArrayList<>();
+        init();
+
+    }
+
+    private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
-        adapter = new StoryAdapter(getActivity(), strs);
-        rvRests.setAdapter(adapter);
+        fbs = FirebaseServices.getInstance();
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
-        fbs.getFire().collection("Stories").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        list = new ArrayList<>();
+        filteredList = new ArrayList<>();
+        adapter = new StoryAdapter(getActivity(), list);
+        rvRests.setAdapter(adapter);
+        adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                String selectedItem = list.get(position).getName();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.commit();
+
+            }
+        });
+        fbs.getFire().collection("stories").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
-                    Story str = dataSnapshot.toObject(Story.class);
-
-                    strs.add(str);
+                for (DocumentSnapshot dataSnapshot : queryDocumentSnapshots.getDocuments()) {
+                    Story story = dataSnapshot.toObject(Story.class);
+                    list.add(story);
                 }
+
+
                 adapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), "No Data Available", Toast.LENGTH_SHORT).show();
-                Log.e("AllStoriesFragment",e.getMessage());
+
             }
         });
+
+        srchView = getView().findViewById(R.id.srchView);
+           srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+           });
+
+
+
     }
 }
+
