@@ -113,11 +113,11 @@ public class AllStoriesFragment extends Fragment {
                 String selectedItem = storieslist.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("car", storieslist.get(position)); // or use Parcelable for better performance
+                args.putParcelable("stoty", storieslist.get(position)); // or use Parcelable for better performance
                 StoriesDetails sd = new StoriesDetails();
                 sd.setArguments(args);
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,sd);
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout, sd);
                 ft.commit();
             }
         });
@@ -138,29 +138,26 @@ public class AllStoriesFragment extends Fragment {
         //((MainActivity)getActivity()).pushFragment(new CarsListFragment());
 
     }
+
     private void applyFilter(String query) {
         // TODO: add onBackspace - old and new query
-        if (query.trim().isEmpty())
-        {
+        if (query.trim().isEmpty()) {
             adapter = new StoryAdapter(getContext(), storieslist);
             rvRests.setAdapter(adapter);
-            //myAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             return;
         }
         filteredList.clear();
-        for(Story story : filteredList)
-        {
+        for (Story story : filteredList) {
             if (story.getName().toLowerCase().contains(query.toLowerCase()) ||
                     story.getDescription().toLowerCase().contains(query.toLowerCase()) ||
                     story.getGenre().toLowerCase().contains(query.toLowerCase()) ||
                     story.getRating().toLowerCase().contains(query.toLowerCase()) ||
-                    story.getImage().toLowerCase().contains(query.toLowerCase()))
-            {
+                    story.getImage().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(story);
             }
         }
-        if (filteredList.size() == 0)
-        {
+        if (filteredList.size() == 0) {
             showNoDataDialogue();
             return;
         }
@@ -197,20 +194,18 @@ public class AllStoriesFragment extends Fragment {
     }
 
 
-
     public void gotoProfileFragment() {
-        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new ProfileFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new ProfileFragment());
         ft.commit();
     }
 
-    public ArrayList<Story> getStories()
-    {
+    public ArrayList<Story> getStories() {
         ArrayList<Story> stories = new ArrayList<>();
 
         try {
             stories.clear();
-            fbs.getFire().collection("cars2")
+            fbs.getFire().collection("stories2")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -224,13 +219,11 @@ public class AllStoriesFragment extends Fragment {
                                 rvRests.setAdapter(adapter);
                                 //addUserToCompany(companies, user);
                             } else {
-                                //Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
+                                Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
                             }
                         }
                     });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("getCompaniesMap(): ", e.getMessage());
         }
 
