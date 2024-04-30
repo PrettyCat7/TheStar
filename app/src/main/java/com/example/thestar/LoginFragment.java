@@ -115,7 +115,7 @@ public class LoginFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
-                                gotoallstoriesfragment();
+                                gotoAddStoryFragment();
                             }
                             else {
                                 Toast.makeText(getActivity(), "check your data", Toast.LENGTH_SHORT).show();

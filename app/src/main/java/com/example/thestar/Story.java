@@ -12,15 +12,20 @@ public class Story implements Parcelable {
     private String Name;
     private String Description;
     private String Genre;
-    private String Rating ;
-    private String Image;
+    private String Rating;
 
-    public Story(String name, String description, String genre, String rating) {
+   private String Photo;
+
+
+
+
+
+    public Story(String name, String description, String genre, String rating, String photo) {
         Name = name;
         Description = description;
         Genre = genre;
         Rating = rating;
-        Image= Image;
+        Photo = photo;
     }
 
     protected Story(Parcel in) {
@@ -28,7 +33,7 @@ public class Story implements Parcelable {
         Description = in.readString();
         Genre = in.readString();
         Rating = in.readString();
-        Image = in.readString();
+        Photo = in.readString();
     }
 
     public static final Creator<Story> CREATOR = new Creator<Story>() {
@@ -43,12 +48,13 @@ public class Story implements Parcelable {
         }
     };
 
-    public String getImage() {
-        return Image;
+
+    public String getPhoto() {
+        return Photo;
     }
 
-    public void setImage(String image) {
-        Image = image;
+    public void setPhoto(String photo) {
+        Photo = photo;
     }
 
     public String getName() {
@@ -90,7 +96,7 @@ public class Story implements Parcelable {
                 ", Description='" + Description + '\'' +
                 ", Genre='" + Genre + '\'' +
                 ", Rating='" + Rating + '\'' +
-                ", Image=" + Image +
+                ", Image=" + Photo +
                 '}';
     }
 
@@ -105,6 +111,6 @@ public class Story implements Parcelable {
         parcel.writeString(Description);
         parcel.writeString(Genre);
         parcel.writeString(Rating);
-        parcel.writeString(Image);
+        parcel.writeString(Photo);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.thestar;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.UUID;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddStoryFragment#newInstance} factory method to
@@ -34,7 +38,7 @@ public class AddStoryFragment extends Fragment {
 
     Utlis utlis;
     private TextView tvAdd;
-    private EditText etnameAdd,etdesAdd,etgenreAdd,etRating;
+    private EditText etnameAdd, etdesAdd, etgenreAdd, etRating;
 
     private FirebaseServices fbs;
     private Button btnAdd;
@@ -98,12 +102,12 @@ public class AddStoryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(data!=null && requestCode==GALLERY_REQUEST_CODE){
+        if (data != null && requestCode == GALLERY_REQUEST_CODE) {
 
             Uri uriPhoto = Uri.parse(data.toURI());
 
             imgstr.setImageURI(uriPhoto);
-            
+
         }
 
     }
@@ -111,69 +115,81 @@ public class AddStoryFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        connectComponents();
+        init();
     }
 
-    private void connectComponents() {
+    private void init() {
 
         utlis = Utlis.getInstance();
-        fbs=FirebaseServices.getInstance();
-        etnameAdd=getView().findViewById(R.id.etnameadd);
-        etdesAdd=getView().findViewById(R.id.etdesadd);
-        etgenreAdd=getView().findViewById(R.id.etgenadd);
-        etRating=getView().findViewById(R.id.etrating);
-        btnAdd=getView().findViewById(R.id.btnAdd);
-        imgstr=getView().findViewById(R.id.IVstr);
+        fbs = FirebaseServices.getInstance();
+        etnameAdd = getView().findViewById(R.id.etnameadd);
+        etdesAdd = getView().findViewById(R.id.etdesadd);
+        etgenreAdd = getView().findViewById(R.id.etgenadd);
+        etRating = getView().findViewById(R.id.etrating);
+        btnAdd = getView().findViewById(R.id.btnAdd);
+        imgstr = getView().findViewById(R.id.IVstr);
 
         imgstr.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {openGallery();}
-
+            public void onClick(View v) {
+                openGallery();
+            }
         });
+        ((MainActivity) getActivity()).pushFragment(new AddStoryFragment());
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                String Name = etnameAdd.getText().toString();
-                String Description = etdesAdd.getText().toString();
-                String Genre = etgenreAdd.getText().toString();
-                String Rating = etRating.getText().toString();
-
-
-                if (Name.trim().isEmpty()||Description.trim().isEmpty()||Genre.trim().isEmpty()||Rating.trim().isEmpty() ){
-
-                    Toast.makeText(getActivity(), "Some Of Your Fields Are Empty ):", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else {
-
-                      Story str = new Story(Name,Description,Genre, Rating);
-                      fbs.getFire().collection("Stories").add(str).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                          @Override
-                          public void onSuccess(DocumentReference documentReference) {
-                              Toast.makeText(getActivity(), "Successfully Added Your Story (: ", Toast.LENGTH_SHORT).show();
-                              FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                              ft.replace(R.id.frameLayout,new AllStoriesFragment());
-                              ft.commit();
-                          }
-                      }).addOnFailureListener(new OnFailureListener() {
-                          @Override
-                          public void onFailure(@NonNull Exception e) {
-                              Log.e("Fail Add Story :",e.getMessage());
-                          }
-                      });
-                }
+            public void onClick(View v) {
+                addToFirestore();
             }
-
 
 
         });
 
+    }
 
+    private void addToFirestore() {
+        String Name, Genre, Description, Rating;
 
+        Name = etnameAdd.getText().toString();
+        Genre = etgenreAdd.getText().toString();
+        Description = etdesAdd.getText().toString();
+        Rating = etRating.getText().toString();
 
+        if (Name.trim().isEmpty() || Genre.trim().isEmpty() || Description.trim().isEmpty() || Rating.trim().isEmpty()) {
+            Toast.makeText(getActivity(), "Check your inputs.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Story story1, story2;
+        if (fbs.getSelectedImageURL() == null) {
 
+            story1 = new Story(Name, Genre, Description, Rating, "");
+
+        } else {
+            story1 = new Story(Name, Genre, Description, Rating, fbs.getSelectedImageURL().toString());
+
+        }
+        fbs.getFire().collection("Stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "ADD Car is Succesed ", Toast.LENGTH_SHORT).show();
+                Log.e("addToFirestore() - add to collection: ", "Successful!");
+                gotoallstories();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("addToFirestore() - add to collection: ", e.getMessage());
+            }
+        });
+
+    }
+
+    private void gotoallstories() {
+        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+        ft.commit();
 
     }
 }

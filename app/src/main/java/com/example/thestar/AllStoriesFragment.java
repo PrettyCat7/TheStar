@@ -153,7 +153,7 @@ public class AllStoriesFragment extends Fragment {
                     story.getDescription().toLowerCase().contains(query.toLowerCase()) ||
                     story.getGenre().toLowerCase().contains(query.toLowerCase()) ||
                     story.getRating().toLowerCase().contains(query.toLowerCase()) ||
-                    story.getImage().toLowerCase().contains(query.toLowerCase())) {
+                    story.getPhoto().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(story);
             }
         }

@@ -1,5 +1,9 @@
 package com.example.thestar;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +11,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,12 +25,17 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class StoriesDetails extends Fragment {
-
-
-
-
-
-
+    private static final int PERMISSION_SEND_SMS = 1;
+    private static final int REQUEST_CALL_PERMISSION = 2;
+    private FirebaseServices fbs;
+    private TextView name, genre, description, rating;
+    private ImageView ivstrPhoto, imgwhatsapp;
+    private Story myStory;
+    private Button btnWhatsapp;
+    private boolean isEnlarged = false;
+    private EditText message;
+    private Uri uri;
+   private String imgurl="http://www.google.com";
 
 
 
@@ -68,5 +84,77 @@ public class StoriesDetails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_stories_details, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
+        ImageView ivstrPhoto = getView().findViewById(R.id.ivStoryDetailsFragment);
+        ivstrPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewGroup.LayoutParams layoutParams = ivstrPhoto.getLayoutParams();
+                if (isEnlarged) {
+                    layoutParams.height = 500;
+                } else {
+                    layoutParams.height = 2200;
+                }
+                ivstrPhoto.setLayoutParams(layoutParams);
+
+                // נשנה את המצב הנוכחי של התמונה
+                isEnlarged = !isEnlarged;
+            }
+        });
+    }
+
+    private void init() {
+        fbs = FirebaseServices.getInstance();
+        name = getView().findViewById(R.id.tvnamed);
+        genre = getView().findViewById(R.id.tvgenred);
+        description = getView().findViewById(R.id.tvdescd);
+        rating = getView().findViewById(R.id.tvRatingd);
+        ivstrPhoto = getView().findViewById(R.id.ivStoryDetailsFragment);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            myStory = args.getParcelable("story");
+            if (myStory != null) {
+                //String data = myObject.getData();
+                // Now you can use 'data' as needed in FragmentB
+                name.setText(myStory.getName());
+                genre.setText(myStory.getGenre());
+                description.setText(myStory.getDescription());
+                rating.setText(myStory.getRating());
+
+
+            }
+        }
+        btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
+        btnWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager pm = getActivity().getPackageManager();
+                try {
+
+                    Intent waIntent = new Intent(Intent.ACTION_SEND);
+                    waIntent.setType("text/plain");
+                    String text = "Want to share this";
+
+                    PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                    //Check if package exists or not. If not then code
+                    //in catch block will be called
+                    waIntent.setPackage("com.whatsapp");
+                    waIntent.putExtra(waIntent.ACTION_VIEW, uri);
+                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    startActivity(Intent.createChooser(waIntent, "Share with"));
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    Toast.makeText(getActivity(), "Whatsapp is not installed", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        });
     }
 }
