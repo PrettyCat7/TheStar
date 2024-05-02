@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder> {
+
     Context context;
     ArrayList<Story> strList;
     private FirebaseServices fbs;
@@ -47,10 +48,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
                 itemClickListener.onItemClick(position);
             }
         });
-        if (str.getImage() == null || str.getImage().isEmpty()) {
+
+
+        // TODO: Use GLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (str.getPhoto() == null || str.getPhoto().isEmpty()) {
             Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.ivstr);
         } else {
-            Picasso.get().load(str.getImage()).into(holder.ivstr);
+            Picasso.get().load(str.getPhoto()).into(holder.ivstr);
         }
     }
 
@@ -65,11 +69,11 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvNameRestItem);
-            tvDescription = itemView.findViewById(R.id.tvDescriptionRestItem);
-            tvGenre = itemView.findViewById(R.id.etgenadd);
-            tvRating = itemView.findViewById(R.id.etrating);
-            ivstr = itemView.findViewById(R.id.IVstr);
+            tvName = itemView.findViewById(R.id.tvStory);
+            tvDescription = itemView.findViewById(R.id.tvDesc);
+            tvGenre = itemView.findViewById(R.id.tvGenre);
+            tvRating = itemView.findViewById(R.id.tvRating);
+            ivstr = itemView.findViewById(R.id.tvStoryPhoto);
 
         }
     }
@@ -81,4 +85,5 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
+
 }

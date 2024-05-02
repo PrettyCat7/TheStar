@@ -98,8 +98,8 @@ public class AllStoriesFragment extends Fragment {
     private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
         fbs = FirebaseServices.getInstance();
-        /*if (fbs.getAuth().getCurrentUser() == null)
-            fbs.setCurrentUser(fbs.getCurrentObjectUser()); */
+       /*if (fbs.getAuth().getCurrentUser() == null)
+            fbs.setCurrentUser(fbs.getCurrentObjectUser());*/
         storieslist = new ArrayList<>();
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));

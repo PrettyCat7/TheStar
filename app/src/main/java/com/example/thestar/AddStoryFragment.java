@@ -104,10 +104,12 @@ public class AddStoryFragment extends Fragment {
 
         if (data != null && requestCode == GALLERY_REQUEST_CODE) {
 
-            Uri uriPhoto = Uri.parse(data.toURI());
+            Uri uriPhoto = data.getData();
 
             imgstr.setImageURI(uriPhoto);
 
+            // Upload Image using Utlis Class!!
+            utlis.uploadImage(getActivity(),uriPhoto);
         }
 
     }
@@ -167,7 +169,6 @@ public class AddStoryFragment extends Fragment {
 
         } else {
             story1 = new Story(Name, Genre, Description, Rating, fbs.getSelectedImageURL().toString());
-
         }
         fbs.getFire().collection("Stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override

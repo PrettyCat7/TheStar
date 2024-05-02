@@ -35,8 +35,7 @@ public class StoriesDetails extends Fragment {
     private boolean isEnlarged = false;
     private EditText message;
     private Uri uri;
-   private String imgurl="http://www.google.com";
-
+    private String imgurl = "http://www.google.com";
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -130,7 +129,7 @@ public class StoriesDetails extends Fragment {
 
             }
         }
-        btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
+        /*  btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
         btnWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,6 +154,6 @@ public class StoriesDetails extends Fragment {
 
             }
 
-        });
+        });/*/
     }
 }

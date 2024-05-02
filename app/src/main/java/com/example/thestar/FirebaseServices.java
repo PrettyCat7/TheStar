@@ -44,6 +44,7 @@ public class FirebaseServices {
         return instance;
     }
 
+
     public  FirebaseServices() {
         auth = FirebaseAuth.getInstance();
         fire = FirebaseFirestore.getInstance();

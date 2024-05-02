@@ -92,25 +92,10 @@
             android:layout_marginTop="-20dp"
             android:hint="Rating of the story" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="97dp"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <!-- Buttons for actions -->
 
     </LinearLayout>
 
-
+   
 </ScrollView>
