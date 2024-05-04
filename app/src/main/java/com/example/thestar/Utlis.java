@@ -22,35 +22,17 @@ public class Utlis {
     private FirebaseServices fbs;
     private String imageStr;
 
-    public Utlis()
-    {
+    public Utlis() {
         fbs = FirebaseServices.getInstance();
     }
 
-    public static Utlis getInstance()
-    {
+    public static Utlis getInstance() {
         if (instance == null)
             instance = new Utlis();
 
         return instance;
     }
-    public void showMessageDialog(Context context, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(message);
-        //builder.setMessage(message);
 
-        // Add a button to dismiss the dialog box
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // You can perform additional actions here if needed
-                dialog.dismiss();
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     public void uploadImage(Context context, Uri selectedImageUri) {
         if (selectedImageUri != null) {

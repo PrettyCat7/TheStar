@@ -26,7 +26,7 @@ import com.google.firebase.auth.AuthResult;
  */
 public class SignUpFragment extends Fragment {
 
-    private EditText etUsername , etPassword , etPhone , etsignupemail;
+    private EditText etUsername, etPassword, etsignupemail;
     private Button btnSignup;
     private FirebaseServices fbs;
     private FloatingActionButton FAB;
@@ -84,34 +84,36 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fbs=FirebaseServices.getInstance();
-        etUsername= getView().findViewById(R.id.etusername);
-        etPassword= getView().findViewById(R.id.etpassword);
-        btnSignup= getView().findViewById(R.id.btnsignup);
-        etsignupemail =getView().findViewById(R.id.etSignupemail);
-        FAB=getView().findViewById(R.id.fbBackS);
+        fbs = FirebaseServices.getInstance();
+        etUsername = getView().findViewById(R.id.etusername);
+        etPassword = getView().findViewById(R.id.etpassword);
+        btnSignup = getView().findViewById(R.id.btnsignup);
+        etsignupemail = getView().findViewById(R.id.etSignupemail);
+        FAB = getView().findViewById(R.id.fbBackS);
 
-          FAB.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {gotologinfragment();}
-          });
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotologinfragment();
+            }
+        });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String Email = etsignupemail.getText().toString();
-                if (password.trim().isEmpty()||username.trim().isEmpty()||Email.trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show(); return;
+                if (password.trim().isEmpty() || username.trim().isEmpty() || Email.trim().isEmpty()) {
+                    Toast.makeText(getActivity(), "Check Your Inputs", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                fbs.getAuth().createUserWithEmailAndPassword(Email,password).addOnCompleteListener(getActivity(),new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().createUserWithEmailAndPassword(Email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                                          gotoallstoryfragment();
+                        if (task.isSuccessful()) {
+                            gotoallstoryfragment();
                             Toast.makeText(getActivity(), "successfully added your data", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getActivity(), "unsuccessfully added your data", Toast.LENGTH_SHORT).show();
                         }
 
@@ -123,14 +125,15 @@ public class SignUpFragment extends Fragment {
 
     private void gotoallstoryfragment() {
 
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AllStoriesFragment());
         ft.commit();
     }
+
     private void gotologinfragment() {
 
-        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new LoginFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new LoginFragment());
         ft.commit();
     }
 

@@ -3,6 +3,7 @@ package com.example.thestar;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 
@@ -13,7 +14,6 @@ public class Story implements Parcelable {
     private String Description;
     private String Genre;
     private String Rating;
-
    private String Photo;
 
 

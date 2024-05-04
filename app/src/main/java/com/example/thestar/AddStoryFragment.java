@@ -37,7 +37,7 @@ import java.util.UUID;
 public class AddStoryFragment extends Fragment {
 
     Utlis utlis;
-    private TextView tvAdd;
+
     private EditText etnameAdd, etdesAdd, etgenreAdd, etRating;
 
     private FirebaseServices fbs;
@@ -78,39 +78,6 @@ public class AddStoryFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_story, container, false);
-    }
-
-    private void openGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data != null && requestCode == GALLERY_REQUEST_CODE) {
-
-            Uri uriPhoto = Uri.parse(data.toURI());
-
-            imgstr.setImageURI(uriPhoto);
-
-        }
-
-    }
 
     @Override
     public void onStart() {
@@ -131,9 +98,7 @@ public class AddStoryFragment extends Fragment {
 
         imgstr.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openGallery();
-            }
+            public void onClick(View v) {openGallery();}
         });
         ((MainActivity) getActivity()).pushFragment(new AddStoryFragment());
 
@@ -186,9 +151,40 @@ public class AddStoryFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_story, container, false);
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            imgstr.setImageURI(selectedImageUri);
+            utlis.uploadImage(getActivity(), selectedImageUri);
+        }
+    }
+
     private void gotoallstories() {
-        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AllStoriesFragment());
         ft.commit();
 
     }

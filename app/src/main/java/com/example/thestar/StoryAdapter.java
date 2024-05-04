@@ -18,13 +18,12 @@ import java.util.ArrayList;
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder> {
     Context context;
     ArrayList<Story> strList;
-    private FirebaseServices fbs;
+
     private OnItemClickListener itemClickListener;
 
     public StoryAdapter(Context context, ArrayList<Story> strList) {
         this.context = context;
         this.strList = strList;
-        this.fbs = FirebaseServices.getInstance();
     }
 
     @NonNull
@@ -47,10 +46,10 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
                 itemClickListener.onItemClick(position);
             }
         });
-        if (str.getImage() == null || str.getImage().isEmpty()) {
+        if (str.getPhoto() == null || str.getPhoto().isEmpty()) {
             Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.ivstr);
         } else {
-            Picasso.get().load(str.getImage()).into(holder.ivstr);
+            Picasso.get().load(str.getPhoto()).into(holder.ivstr);
         }
     }
 
