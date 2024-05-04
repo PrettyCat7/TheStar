@@ -125,7 +125,11 @@ public class StoriesDetails extends Fragment {
                 genre.setText(myStory.getGenre());
                 description.setText(myStory.getDescription());
                 rating.setText(myStory.getRating());
-
+                if (myStory.getPhoto() == null || myStory.getPhoto().isEmpty()) {
+                    Picasso.get().load(R.drawable.ic_launcher_background).into(ivstrPhoto);
+                } else {
+                    Picasso.get().load(myStory.getPhoto()).into(ivstrPhoto);
+                }
 
             }
         }

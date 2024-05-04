@@ -1,16 +1,8 @@
 package com.example.thestar;
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,15 +11,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,7 +103,7 @@ public class AddStoryFragment extends Fragment {
             imgstr.setImageURI(uriPhoto);
 
             // Upload Image using Utlis Class!!
-            utlis.uploadImage(getActivity(),uriPhoto);
+            utlis.uploadImage(getActivity(), uriPhoto);
         }
 
     }
@@ -130,12 +124,9 @@ public class AddStoryFragment extends Fragment {
         etRating = getView().findViewById(R.id.etrating);
         btnAdd = getView().findViewById(R.id.btnAdd);
         imgstr = getView().findViewById(R.id.IVstr);
-
         imgstr.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                openGallery();
-            }
+            public void onClick(View v) {openGallery();}
         });
         ((MainActivity) getActivity()).pushFragment(new AddStoryFragment());
 
@@ -158,6 +149,7 @@ public class AddStoryFragment extends Fragment {
         Description = etdesAdd.getText().toString();
         Rating = etRating.getText().toString();
 
+
         if (Name.trim().isEmpty() || Genre.trim().isEmpty() || Description.trim().isEmpty() || Rating.trim().isEmpty()) {
             Toast.makeText(getActivity(), "Check your inputs.", Toast.LENGTH_SHORT).show();
             return;
@@ -166,14 +158,13 @@ public class AddStoryFragment extends Fragment {
         if (fbs.getSelectedImageURL() == null) {
 
             story1 = new Story(Name, Genre, Description, Rating, "");
-
         } else {
             story1 = new Story(Name, Genre, Description, Rating, fbs.getSelectedImageURL().toString());
         }
         fbs.getFire().collection("Stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getActivity(), "ADD Car is Succesed ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "ADD Story is Succesed ", Toast.LENGTH_SHORT).show();
                 Log.e("addToFirestore() - add to collection: ", "Successful!");
                 gotoallstories();
 
@@ -188,8 +179,8 @@ public class AddStoryFragment extends Fragment {
     }
 
     private void gotoallstories() {
-        FragmentTransaction ft= getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AllStoriesFragment());
         ft.commit();
 
     }

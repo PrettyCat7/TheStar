@@ -113,7 +113,7 @@ public class AllStoriesFragment extends Fragment {
                 String selectedItem = storieslist.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("stoty", storieslist.get(position)); // or use Parcelable for better performance
+                args.putParcelable("story", storieslist.get(position)); // or use Parcelable for better performance
                 StoriesDetails sd = new StoriesDetails();
                 sd.setArguments(args);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -168,22 +168,7 @@ public class AllStoriesFragment extends Fragment {
         myAdapter= new CarListAdapter2(getActivity(),filteredList);
         recyclerView.setAdapter(myAdapter); */
 
-        adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                /*
-                // Handle item click here
-                String selectedItem = filteredList.get(position).getName();
-                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
-                Bundle args = new Bundle();
-                args.putParcelable("story", filteredList.get(position)); // or use Parcelable for better performance
-                CarDetailsFragment cd = new CarDetailsFragment();
-                cd.setArguments(args);
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,cd);
-                ft.commit(); */
-            }
-        });
+
     }
 
     private void showNoDataDialogue() {

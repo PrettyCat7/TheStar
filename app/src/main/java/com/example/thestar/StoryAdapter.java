@@ -48,7 +48,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
                 itemClickListener.onItemClick(position);
             }
         });
-
+        if (str.getPhoto() == null || str.getPhoto().isEmpty())
+        {
+            Picasso.get().load(R.drawable.ic_launcher_background).into(holder.ivstr);
+        }
+        else {
+            Picasso.get().load(str.getPhoto()).into(holder.ivstr);
+        }
 
         // TODO: Use GLIDE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (str.getPhoto() == null || str.getPhoto().isEmpty()) {
