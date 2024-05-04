@@ -34,7 +34,7 @@ public class Utlis {
     }
 
 
-    public void uploadImage(Context context, Uri selectedImageUri) {
+   public void uploadImage(Context context, Uri selectedImageUri) {
         if (selectedImageUri != null) {
             imageStr = "images/" + UUID.randomUUID() + ".jpg"; //+ selectedImageUri.getLastPathSegment();
             StorageReference imageRef = fbs.getStorage().getReference().child("images/" + selectedImageUri.getLastPathSegment());
@@ -66,5 +66,6 @@ public class Utlis {
         } else {
             Toast.makeText(context, "Please choose an image first", Toast.LENGTH_SHORT).show();
         }
+        }
     }
-}
+

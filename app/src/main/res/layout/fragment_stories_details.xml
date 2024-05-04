@@ -1,117 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:backgroundTint="#000000">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- ImageView for Car Image -->
-
-
-        <!-- Car Name -->
-
-        <ImageView
-            android:id="@+id/ivStoryDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:clickable="true"
-            android:contentDescription="story Image"
-            android:onClick="toBigImg"
-            android:scaleType="fitCenter" />
-
-        <TextView
-            android:id="@+id/tvnamed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Name of the Story :"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvStoryNameDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="-20dp"
-            android:hint="Story Name" />
-
-        <TextView
-            android:id="@+id/tvgenred"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:text="Genre :"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvStoryGenreDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="-20dp"
-            android:hint="the story's genre" />
-
-        <!-- Car Model -->
-        <TextView
-            android:id="@+id/tvdescd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Description:"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvStorydesDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="-20dp"
-            android:hint="Description" />
-
-        <!-- Year of Car -->
-        <TextView
-            android:id="@+id/tvRatingd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Rating:"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvRatingdDetailsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="200dp"
-            android:layout_marginTop="-20dp"
-            android:hint="Rating of the story" />
-
-
-        <!-- Buttons for actions -->
-
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
-
-        <Button
-            android:id="@+id/btnWhatsApp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="#00E40E"
-            android:text="WhatsApp" />
+            android:background="#FFFFFC"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/storyImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#FBFBFB"
+                android:scaleType="centerCrop" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/storyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/storyGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp" />
+
+            <RatingBar
+                android:id="@+id/storyRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="#FFFCFC"
+                android:backgroundTint="#FFFFFF"
+                android:progressBackgroundTint="#CDDC39" />
+
+            <TextView
+                android:id="@+id/storyDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Share on WhatsApp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </ScrollView>
+

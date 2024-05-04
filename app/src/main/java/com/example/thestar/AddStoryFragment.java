@@ -16,10 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +41,15 @@ public class AddStoryFragment extends Fragment {
 
     Utlis utlis;
 
-    private EditText etnameAdd, etdesAdd, etgenreAdd, etRating;
-
+    private EditText etnameAdd, etdesAdd, etgenreAdd;
+    private RatingBar etRating;
     private FirebaseServices fbs;
     private Button btnAdd;
 
+
     private ImageView imgstr;
+    private MultiAutoCompleteTextView multiAutoCompleteGenre;
+
 
     private static final int GALLERY_REQUEST_CODE = 123;
 
@@ -91,14 +97,33 @@ public class AddStoryFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         etnameAdd = getView().findViewById(R.id.etnameadd);
         etdesAdd = getView().findViewById(R.id.etdesadd);
-        etgenreAdd = getView().findViewById(R.id.etgenadd);
-        etRating = getView().findViewById(R.id.etrating);
+        //etgenreAdd = getView().findViewById(R.id.etgenadd);
         btnAdd = getView().findViewById(R.id.btnAdd);
         imgstr = getView().findViewById(R.id.IVstr);
+        etRating = getView().findViewById(R.id.ratingBar);
+        multiAutoCompleteGenre = getView().findViewById(R.id.multiAutoCompleteGenre);
+        multiAutoCompleteGenre.setThreshold(1);
+
+        String[] genre = {"Action & Adventure", "Comedy", "Fantasy", "Science Fiction", "Mystery", "Horror", "Historical Fiction", "Romance", "Women’s Fiction ", " Literary Fiction", "Magical Realism", "Graphic Novel", "Short Story", "Children’s","Young Adult","New Adult ","Memoir & Autobiography","Food & Drink","Art & Photography","History","Travel","Crime","Science & Technology","Guide / How-to"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, genre);
+        multiAutoCompleteGenre.setAdapter(adapter);
+        multiAutoCompleteGenre.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+        etRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (fromUser) {
+                    Toast.makeText(getActivity(), "Your have rated this story :" + rating +"  "+ "out of 5", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
         imgstr.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {openGallery();}
+            public void onClick(View v) {
+                openGallery();
+            }
         });
         ((MainActivity) getActivity()).pushFragment(new AddStoryFragment());
 
@@ -108,36 +133,37 @@ public class AddStoryFragment extends Fragment {
                 addToFirestore();
             }
 
-
         });
 
     }
 
     private void addToFirestore() {
-        String Name, Genre, Description, Rating;
-
+        String Name, Genre, Description, ratingStr,selectedGenres;
+        selectedGenres = multiAutoCompleteGenre.getText().toString();
+        ratingStr = String.valueOf(etRating.getRating());
         Name = etnameAdd.getText().toString();
-        Genre = etgenreAdd.getText().toString();
+      // if it didnt work  Genre = etgenreAdd.getText().toString();
         Description = etdesAdd.getText().toString();
-        Rating = etRating.getText().toString();
 
-        if (Name.trim().isEmpty() || Genre.trim().isEmpty() || Description.trim().isEmpty() || Rating.trim().isEmpty()) {
+
+        if (Name.trim().isEmpty() || selectedGenres.trim().isEmpty() || Description.trim().isEmpty() || ratingStr.trim().isEmpty()) {
             Toast.makeText(getActivity(), "Check your inputs.", Toast.LENGTH_SHORT).show();
             return;
         }
         Story story1, story2;
         if (fbs.getSelectedImageURL() == null) {
 
-            story1 = new Story(Name, Genre, Description, Rating, "");
+            story1 = new Story(Name, selectedGenres, Description, ratingStr, "");
+
 
         } else {
-            story1 = new Story(Name, Genre, Description, Rating, fbs.getSelectedImageURL().toString());
+            story1 = new Story(Name, selectedGenres, Description, ratingStr, fbs.getSelectedImageURL().toString());
 
         }
         fbs.getFire().collection("Stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getActivity(), "ADD Car is Succesed ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "ADD Story is Succeed ", Toast.LENGTH_SHORT).show();
                 Log.e("addToFirestore() - add to collection: ", "Successful!");
                 gotoallstories();
 
@@ -145,6 +171,7 @@ public class AddStoryFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), "Failed to add the story please try again", Toast.LENGTH_SHORT).show();
                 Log.e("addToFirestore() - add to collection: ", e.getMessage());
             }
         });

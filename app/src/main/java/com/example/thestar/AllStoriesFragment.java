@@ -113,7 +113,7 @@ public class AllStoriesFragment extends Fragment {
                 String selectedItem = storieslist.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("stoty", storieslist.get(position)); // or use Parcelable for better performance
+                args.putParcelable("story", storieslist.get(position)); // or use Parcelable for better performance
                 StoriesDetails sd = new StoriesDetails();
                 sd.setArguments(args);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

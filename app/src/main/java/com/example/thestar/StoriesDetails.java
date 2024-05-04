@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class StoriesDetails extends Fragment {
     private static final int PERMISSION_SEND_SMS = 1;
     private static final int REQUEST_CALL_PERMISSION = 2;
     private FirebaseServices fbs;
-    private TextView name, genre, description, rating;
+    private TextView name, genre, description;
     private ImageView ivstrPhoto, imgwhatsapp;
     private Story myStory;
     private Button btnWhatsapp;
@@ -36,6 +37,7 @@ public class StoriesDetails extends Fragment {
     private EditText message;
     private Uri uri;
    private String imgurl="http://www.google.com";
+   private RatingBar rating;
 
 
 
@@ -90,7 +92,7 @@ public class StoriesDetails extends Fragment {
     public void onStart() {
         super.onStart();
         init();
-        ImageView ivstrPhoto = getView().findViewById(R.id.ivStoryDetailsFragment);
+        ImageView ivstrPhoto = getView().findViewById(R.id.storyImage);
         ivstrPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,11 +112,11 @@ public class StoriesDetails extends Fragment {
 
     private void init() {
         fbs = FirebaseServices.getInstance();
-        name = getView().findViewById(R.id.tvnamed);
-        genre = getView().findViewById(R.id.tvgenred);
-        description = getView().findViewById(R.id.tvdescd);
-        rating = getView().findViewById(R.id.tvRatingd);
-        ivstrPhoto = getView().findViewById(R.id.ivStoryDetailsFragment);
+        name = getView().findViewById(R.id.storyName);
+        genre = getView().findViewById(R.id.storyGenre);
+        description = getView().findViewById(R.id.storyDescription);
+        rating = getView().findViewById(R.id.storyRating);
+        ivstrPhoto = getView().findViewById(R.id.storyImage);
 
         Bundle args = getArguments();
         if (args != null) {
@@ -125,12 +127,12 @@ public class StoriesDetails extends Fragment {
                 name.setText(myStory.getName());
                 genre.setText(myStory.getGenre());
                 description.setText(myStory.getDescription());
-                rating.setText(myStory.getRating());
+             String rating = String.valueOf(myStory.getRating());
 
 
             }
         }
-        btnWhatsapp = getView().findViewById(R.id.btnWhatsApp);
+        btnWhatsapp = getView().findViewById(R.id.shareButton);
         btnWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

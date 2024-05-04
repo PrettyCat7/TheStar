@@ -7,11 +7,12 @@
     android:rotation="0"
     android:rotationX="0"
     android:rotationY="0"
-    tools:context=".LoginFragment">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#000000">
 
         <EditText
             android:id="@+id/etemaillogin"
@@ -21,6 +22,7 @@
             android:ems="10"
             android:hint="Email"
             android:inputType="text"
+            android:textColorHint="#CDDC39"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +36,7 @@
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
+            android:textColorHint="#CDDC39"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
+            android:backgroundTint="#CDDC39"
             android:text="LogIn"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +60,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginTop="16dp"
+            android:backgroundTint="#FFFFFF"
             android:text="Forgot Passsword"
-            android:textColor="#1746CF"
-            android:textColorHighlight="#186283"
-            android:textColorHint="#137CAC"
+            android:textColor="#CDDC39"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#CDDC39"
             android:textColorLink="#80DEEA"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/etpasswordlogin"
@@ -71,8 +76,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
             android:layout_marginEnd="27dp"
+            android:backgroundTint="#FFFFFF"
             android:text="SignUp"
-            android:textColor="#1746CF"
+            android:textColor="#CDDC39"
+            android:textColorHighlight="#FFFFFF"
+            android:textColorHint="#CDDC39"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/btnlogin"
             app:layout_constraintTop_toBottomOf="@+id/btnlogin" />

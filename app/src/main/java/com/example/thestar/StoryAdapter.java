@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     ArrayList<Story> strList;
 
     private OnItemClickListener itemClickListener;
+    private RatingBar etRating;
+
 
     public StoryAdapter(Context context, ArrayList<Story> strList) {
         this.context = context;
@@ -37,9 +40,9 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Story str = strList.get(position);
 
+        holder.etRating.setRating(Float.parseFloat(str.getRating()));
         holder.tvName.setText(str.getName());
         holder.tvDescription.setText(str.getDescription());
-        holder.tvRating.setText(str.getRating());
         holder.tvGenre.setText(str.getGenre());
         holder.tvName.setOnClickListener(v -> {
             if (itemClickListener != null) {
@@ -61,13 +64,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvDescription, tvGenre, tvRating;
         ImageView ivstr;
-
+        RatingBar etRating;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvNameRestItem);
             tvDescription = itemView.findViewById(R.id.tvDescriptionRestItem);
             tvGenre = itemView.findViewById(R.id.etgenadd);
-            tvRating = itemView.findViewById(R.id.etrating);
+            etRating = itemView.findViewById(R.id.ratingBar);
             ivstr = itemView.findViewById(R.id.IVstr);
 
         }

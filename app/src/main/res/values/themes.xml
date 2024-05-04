@@ -3,7 +3,10 @@
     <style name="Base.Theme.TheStar" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#CDDC39</item>
+
     </style>
 
     <style name="Theme.TheStar" parent="Base.Theme.TheStar" />
+
 </resources>
