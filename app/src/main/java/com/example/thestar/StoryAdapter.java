@@ -67,8 +67,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
         RatingBar etRating;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvNameRestItem);
-            tvDescription = itemView.findViewById(R.id.tvDescriptionRestItem);
+            tvName = itemView.findViewById(R.id.etnameadd);
+            tvDescription = itemView.findViewById(R.id.etdesadd);
             tvGenre = itemView.findViewById(R.id.etgenadd);
             etRating = itemView.findViewById(R.id.ratingBar);
             ivstr = itemView.findViewById(R.id.IVstr);

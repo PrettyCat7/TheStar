@@ -142,6 +142,8 @@ public class StoriesDetails extends Fragment {
                     Intent waIntent = new Intent(Intent.ACTION_SEND);
                     waIntent.setType("text/plain");
                     String text = "Want to share this";
+                    waIntent.putExtra(Intent.EXTRA_TEXT, " check out this story  " +myStory.getName()+ "  Story :  "  );
+                    String url = "http://your-server.com/path/to/content"; // Replace with your actual URL
 
                     PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
                     //Check if package exists or not. If not then code
@@ -150,6 +152,7 @@ public class StoriesDetails extends Fragment {
                     waIntent.putExtra(waIntent.ACTION_VIEW, uri);
                     waIntent.putExtra(Intent.EXTRA_TEXT, text);
                     startActivity(Intent.createChooser(waIntent, "Share with"));
+
 
                 } catch (PackageManager.NameNotFoundException e) {
                     Toast.makeText(getActivity(), "Whatsapp is not installed", Toast.LENGTH_SHORT).show();

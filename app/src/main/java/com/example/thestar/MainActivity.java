@@ -15,23 +15,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gotoLoginfragment();
-       // go();
+       // gotoLoginfragment();
+        // go();
+        gotodeatails();
     }
-   public void gotoLoginfragment(){
 
-       FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-       ft.replace(R.id.frameLayout,new LoginFragment());
-       ft.commit();
+    private void gotodeatails() {
 
-   }
-   public void go(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new StoriesDetails());
+        ft.commit();
+    }
 
-        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout,new AllStoriesFragment());
+    public void gotoLoginfragment() {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new LoginFragment());
         ft.commit();
 
     }
+
+    public void go() {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout, new AllStoriesFragment());
+        ft.commit();
+
+    }
+
     public void pushFragment(Fragment fragment) {
         fragmentStack.push(fragment);
         /*
