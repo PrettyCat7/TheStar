@@ -98,8 +98,8 @@ public class AllStoriesFragment extends Fragment {
     private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
         fbs = FirebaseServices.getInstance();
-        /*if (fbs.getAuth().getCurrentUser() == null)
-            fbs.setCurrentUser(fbs.getCurrentObjectUser()); */
+       /*if (fbs.getAuth().getCurrentUser() == null)
+            fbs.setCurrentUser(fbs.getCurrentObjectUser());*/
         storieslist = new ArrayList<>();
         rvRests.setHasFixedSize(true);
         rvRests.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -168,22 +168,7 @@ public class AllStoriesFragment extends Fragment {
         myAdapter= new CarListAdapter2(getActivity(),filteredList);
         recyclerView.setAdapter(myAdapter); */
 
-        adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                /*
-                // Handle item click here
-                String selectedItem = filteredList.get(position).getName();
-                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
-                Bundle args = new Bundle();
-                args.putParcelable("story", filteredList.get(position)); // or use Parcelable for better performance
-                CarDetailsFragment cd = new CarDetailsFragment();
-                cd.setArguments(args);
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout,cd);
-                ft.commit(); */
-            }
-        });
+
     }
 
     private void showNoDataDialogue() {
