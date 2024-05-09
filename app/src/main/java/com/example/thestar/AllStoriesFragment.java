@@ -190,22 +190,24 @@ public class AllStoriesFragment extends Fragment {
 
         try {
             stories.clear();
-            fbs.getFire().collection("stories2")
+            fbs.getFire().collection("stories")
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    stories.add(document.toObject(Story.class));
-                                }
-
-                                StoryAdapter adapter = new StoryAdapter(getActivity(), storieslist);
-                                rvRests.setAdapter(adapter);
-                                //addUserToCompany(companies, user);
-                            } else {
-                                Log.e("AllRestActivity: readData()", "Error getting documents.", task.getException());
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                stories.add(document.toObject(Story.class));
                             }
+
+                            StoryAdapter adapter = new StoryAdapter(getActivity(), storieslist);
+                            rvRests.setAdapter(adapter);
+                            //addUserToCompany(companies, user);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("AllRestActivity: readData()", "Error getting documents.", e.getCause());
+
                         }
                     });
         } catch (Exception e) {

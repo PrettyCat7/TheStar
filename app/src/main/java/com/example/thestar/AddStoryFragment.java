@@ -160,7 +160,7 @@ public class AddStoryFragment extends Fragment {
             story1 = new Story(Name, selectedGenres, Description, ratingStr, fbs.getSelectedImageURL().toString());
 
         }
-        fbs.getFire().collection("Stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        fbs.getFire().collection("stories").add(story1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "ADD Story is Succeed ", Toast.LENGTH_SHORT).show();

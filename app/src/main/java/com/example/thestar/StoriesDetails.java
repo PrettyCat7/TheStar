@@ -142,7 +142,7 @@ public class StoriesDetails extends Fragment {
                     Intent waIntent = new Intent(Intent.ACTION_SEND);
                     waIntent.setType("text/plain");
                     String text = "Want to share this";
-                    waIntent.putExtra(Intent.EXTRA_TEXT, " check out this story  " +myStory.getName()+ "  Story :  "  );
+                    waIntent.putExtra(Intent.EXTRA_TEXT, " check out this story  " +myStory.getName()+ "  Story :  " + myStory );
                     String url = "http://your-server.com/path/to/content"; // Replace with your actual URL
 
                     PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);

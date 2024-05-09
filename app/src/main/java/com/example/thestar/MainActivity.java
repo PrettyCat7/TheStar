@@ -10,14 +10,22 @@ import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
     private Stack<Fragment> fragmentStack = new Stack<>();
+    // TODO: add fbs propety
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // gotoLoginfragment();
+        /* TODO: connect fbs
+            * check if alrady logged in
+            * if (fbs.getAuth().getCurrenUser() == null)
+                        gotoLoginfragment();
+              else
+                .. goto all stories
+         */
+        gotoLoginfragment();
         // go();
-        gotodeatails();
+        //gotodeatails();
     }
 
     private void gotodeatails() {

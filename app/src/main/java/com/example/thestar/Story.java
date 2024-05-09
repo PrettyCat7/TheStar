@@ -16,9 +16,10 @@ public class Story implements Parcelable {
     private String Rating;
    private String Photo;
 
+   public Story()
+   {
 
-
-
+   }
 
     public Story(String name, String description, String genre, String rating, String photo) {
         Name = name;
