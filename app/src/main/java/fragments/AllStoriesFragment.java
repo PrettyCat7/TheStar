@@ -1,4 +1,4 @@
-package com.example.thestar;
+package fragments;
 
 import android.os.Bundle;
 
@@ -17,11 +17,12 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import Database.FirebaseServices;
+import com.example.thestar.R;
+import Database.Story;
+import Utilites.StoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -98,6 +99,7 @@ public class AllStoriesFragment extends Fragment {
     private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
         fbs = FirebaseServices.getInstance();
+
        /*if (fbs.getAuth().getCurrentUser() == null)
             fbs.setCurrentUser(fbs.getCurrentObjectUser());*/
         storieslist = new ArrayList<>();
@@ -113,11 +115,11 @@ public class AllStoriesFragment extends Fragment {
                 String selectedItem = storieslist.get(position).getName();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("story", storieslist.get(position)); // or use Parcelable for better performance
+                args.putParcelable("Story", storieslist.get(position)); // or use Parcelable for better performance
                 StoriesDetails sd = new StoriesDetails();
                 sd.setArguments(args);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout, sd);
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout,sd);
                 ft.commit();
             }
         });
@@ -144,7 +146,7 @@ public class AllStoriesFragment extends Fragment {
         if (query.trim().isEmpty()) {
             adapter = new StoryAdapter(getContext(), storieslist);
             rvRests.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+           // adapter.notifyDataSetChanged();
             return;
         }
         filteredList.clear();

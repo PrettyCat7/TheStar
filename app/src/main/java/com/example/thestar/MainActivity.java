@@ -8,24 +8,30 @@ import android.os.Bundle;
 
 import java.util.Stack;
 
+import Database.FirebaseServices;
+import fragments.AllStoriesFragment;
+import fragments.LoginFragment;
+import fragments.StoriesDetails;
+
 public class MainActivity extends AppCompatActivity {
     private Stack<Fragment> fragmentStack = new Stack<>();
-    // TODO: add fbs propety
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /* TODO: connect fbs
-            * check if alrady logged in
-            * if (fbs.getAuth().getCurrenUser() == null)
-                        gotoLoginfragment();
-              else
-                .. goto all stories
-         */
-        gotoLoginfragment();
-        // go();
+
+        FirebaseServices fbs = FirebaseServices.getInstance();
+      if (fbs.getAuth().getCurrentUser() == null) {
+            gotoLoginfragment();
+                        pushFragment(new LoginFragment());
+
+
+        } else go();
+
+
         //gotodeatails();
+      //  gotoLoginfragment();
     }
 
     private void gotodeatails() {

@@ -1,4 +1,4 @@
-package com.example.thestar;
+package fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.thestar.R;
 
 /**
  * A simple {@link Fragment} subclass.

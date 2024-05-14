@@ -1,7 +1,6 @@
-package com.example.thestar;
+package fragments;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,9 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import Database.FirebaseServices;
+
+import com.example.thestar.R;
+
+import Database.Story;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,9 +38,8 @@ public class StoriesDetails extends Fragment {
     private boolean isEnlarged = false;
     private EditText message;
     private Uri uri;
-   private String imgurl="http://www.google.com";
-   private RatingBar rating;
-
+    private String imgurl = "http://www.google.com";
+    private RatingBar rating;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -115,8 +116,10 @@ public class StoriesDetails extends Fragment {
         name = getView().findViewById(R.id.storyName);
         genre = getView().findViewById(R.id.storyGenre);
         description = getView().findViewById(R.id.storyDescription);
-        rating = getView().findViewById(R.id.storyRating);
+        rating = getView().findViewById(R.id.storyRatingD);
+
         ivstrPhoto = getView().findViewById(R.id.storyImage);
+
 
         Bundle args = getArguments();
         if (args != null) {
@@ -127,7 +130,10 @@ public class StoriesDetails extends Fragment {
                 name.setText(myStory.getName());
                 genre.setText(myStory.getGenre());
                 description.setText(myStory.getDescription());
-             String rating = String.valueOf(myStory.getRating());
+                rating.setIsIndicator(true);
+                String ratingStr = myStory.getRating(); // Get the rating as a String
+                float ratingValue = Float.parseFloat(ratingStr); // Convert the String to a float
+                rating.setRating(ratingValue); // Set the rating of the RatingBar
 
 
             }
@@ -137,29 +143,37 @@ public class StoriesDetails extends Fragment {
             @Override
             public void onClick(View v) {
                 PackageManager pm = getActivity().getPackageManager();
-                try {
+                //  try {
 
-                    Intent waIntent = new Intent(Intent.ACTION_SEND);
-                    waIntent.setType("text/plain");
+                Intent Intent = new Intent();
+                Intent.setAction(Intent.ACTION_SEND);
+                Intent.putExtra(Intent.EXTRA_TEXT, "Hello" + "check this story" + myStory.getName());
+                Intent.setType("text/plain");
+
+                if (Intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(Intent);
+                }
+                    /*
                     String text = "Want to share this";
-                    waIntent.putExtra(Intent.EXTRA_TEXT, " check out this story  " +myStory.getName()+ "  Story :  " + myStory );
+                    Intent.putExtra(Intent.EXTRA_TEXT, " check out this story  " +myStory.getName()+ "  Story :  " + myStory );
                     String url = "http://your-server.com/path/to/content"; // Replace with your actual URL
 
                     PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
                     //Check if package exists or not. If not then code
                     //in catch block will be called
-                    waIntent.setPackage("com.whatsapp");
-                    waIntent.putExtra(waIntent.ACTION_VIEW, uri);
-                    waIntent.putExtra(Intent.EXTRA_TEXT, text);
-                    startActivity(Intent.createChooser(waIntent, "Share with"));
+                    Intent.setPackage("com.whatsapp");
+                    Intent.putExtra(Intent.ACTION_VIEW, uri);
+                    Intent.putExtra(Intent.EXTRA_TEXT, text);
+                    startActivity(Intent.createChooser(Intent, "Share with"));
 
 
                 } catch (PackageManager.NameNotFoundException e) {
                     Toast.makeText(getActivity(), "Whatsapp is not installed", Toast.LENGTH_SHORT).show();
                 }
-
+                       */
             }
 
         });
     }
+
 }

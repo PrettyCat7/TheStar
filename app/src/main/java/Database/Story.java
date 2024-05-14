@@ -1,13 +1,9 @@
-package com.example.thestar;
+package Database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-
-import java.util.jar.Attributes;
 
 public class Story implements Parcelable {
     private String Name;

@@ -1,13 +1,11 @@
-package com.example.thestar;
+package Utilites;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,6 +13,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
+
+import Database.FirebaseServices;
 
 public class Utlis {
     private static Utlis instance;

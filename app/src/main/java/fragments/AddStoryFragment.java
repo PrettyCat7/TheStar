@@ -1,16 +1,13 @@
-package com.example.thestar;
+package fragments;
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import Database.FirebaseServices;
+import com.example.thestar.MainActivity;
+import com.example.thestar.R;
+import Database.Story;
+import Utilites.Utlis;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.

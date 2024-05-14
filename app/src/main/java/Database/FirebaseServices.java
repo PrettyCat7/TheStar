@@ -1,4 +1,4 @@
-package com.example.thestar;
+package Database;
 
 import android.net.Uri;
 

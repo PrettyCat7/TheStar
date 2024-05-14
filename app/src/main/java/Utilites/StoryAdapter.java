@@ -1,4 +1,4 @@
-package com.example.thestar;
+package Utilites;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thestar.R;
 import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
+
+import Database.Story;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder> {
     Context context;
     ArrayList<Story> strList;
 
     private OnItemClickListener itemClickListener;
-    private RatingBar etRating;
 
 
     public StoryAdapter(Context context, ArrayList<Story> strList) {
@@ -39,11 +41,25 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Story str = strList.get(position);
+        /*
+        if (holder.etRating != null) {
+            holder.ratingString = String.valueOf(holder.etRating.getRating());
+        } else {
+            Log.d("DEBUG", "holder.etRating is null");
+        }*/
 
-        holder.etRating.setRating(Float.parseFloat(str.getRating()));
+// HERE CRASH
+
+       // holder.ratingString = String.valueOf(holder.etRating.getRating());
+// HERE CRASH
+        holder.ratingString = String.valueOf(holder.etRating.getRating());
+        holder.etRating.setIsIndicator(true);
+
         holder.tvName.setText(str.getName());
         holder.tvDescription.setText(str.getDescription());
+        // HERE ALSO CRASH
         holder.tvGenre.setText(str.getGenre());
+        //
         holder.tvName.setOnClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.onItemClick(position);
@@ -62,16 +78,19 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvDescription, tvGenre, tvRating;
+        String ratingString;
+        TextView tvName, tvDescription, tvGenre;
         ImageView ivstr;
         RatingBar etRating;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.etnameadd);
-            tvDescription = itemView.findViewById(R.id.etdesadd);
-            tvGenre = itemView.findViewById(R.id.etgenadd);
-            etRating = itemView.findViewById(R.id.ratingBar);
-            ivstr = itemView.findViewById(R.id.IVstr);
+            tvName = itemView.findViewById(R.id.tvStory);
+            tvDescription = itemView.findViewById(R.id.tvDesc);
+            tvGenre = itemView.findViewById(R.id.tvGenre);
+            etRating = itemView.findViewById(R.id.storyRatingD);
+            ivstr = itemView.findViewById(R.id.tvStoryPhoto);
+
 
         }
     }
