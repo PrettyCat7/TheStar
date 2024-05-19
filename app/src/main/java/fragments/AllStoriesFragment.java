@@ -40,7 +40,7 @@ public class AllStoriesFragment extends Fragment {
     private RecyclerView rvRests;
     private StoryAdapter adapter;
     private SearchView srchView;
-    private Button btnspinner;
+    private Button probtn , btnSignout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +99,18 @@ public class AllStoriesFragment extends Fragment {
     private void init() {
         rvRests = getView().findViewById(R.id.rvStory);
         fbs = FirebaseServices.getInstance();
+        probtn=getView().findViewById(R.id.Profile);
+        btnSignout=getView().findViewById(R.id.signout);
+        btnSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { fbs.getAuth().signOut();
+
+                gotoLoginFragment();}
+        });
+        probtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {gotoProfile();}
+        });
 
        /*if (fbs.getAuth().getCurrentUser() == null)
             fbs.setCurrentUser(fbs.getCurrentObjectUser());*/
@@ -218,7 +230,16 @@ public class AllStoriesFragment extends Fragment {
 
         return stories;
     }
-
+    private void gotoProfile() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new ProfileFragment());
+        ft.commit();
+    }
+    private void gotoLoginFragment() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new LoginFragment());
+        ft.commit();
+    }
 
 }
 

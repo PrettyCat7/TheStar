@@ -92,7 +92,7 @@ public class StoriesDetails extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        init();
+        connectcomponents();
         ImageView ivstrPhoto = getView().findViewById(R.id.storyImage);
         ivstrPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +111,7 @@ public class StoriesDetails extends Fragment {
         });
     }
 
-    private void init() {
+    private void connectcomponents() {
         fbs = FirebaseServices.getInstance();
         name = getView().findViewById(R.id.storyName);
         genre = getView().findViewById(R.id.storyGenre);

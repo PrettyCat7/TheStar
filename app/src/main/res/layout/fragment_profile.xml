@@ -1,39 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.ProfileFragment">
+    android:background="@drawable/ic_launcher_1_background"
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivProfilepicture"
+        <ImageView
+            android:id="@+id/ivLogoUserDetailsEdit"
+            android:layout_width="133dp"
+            android:layout_height="122dp"
+            android:src="@drawable/profile_foreground" />
+
+        <EditText
+            android:id="@+id/etFirstnameUserDetailsEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="124dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            android:ems="10"
+            android:hint="first name..."
+            android:inputType="textEmailAddress"
+            android:textColor="#FFEB3B"
+            android:textColorHint="#FFEB3B"
+            android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/tvProfile"
+        <EditText
+            android:id="@+id/etLastnameUserDetailsEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:scaleType="centerCrop"
-            android:text="@string/profile"
-            android:textColor="#D28585"
-            android:textColorHint="#9071C8"
-            android:textSize="60sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:ems="10"
+            android:hint="last name..."
+            android:inputType="textEmailAddress"
+            android:textColor="#FFEB3B"
+            android:textColorHint="#FFEB3B"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/ivUserUserDetailsEdit"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/profile_foreground" />
+
+        <Button
+            android:id="@+id/btnUpdateUserDetailsEdit"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFEB3B"
+            android:outlineAmbientShadowColor="#FFEB3B"
+            android:outlineSpotShadowColor="#FFEB3B"
+            android:shadowColor="#FFEB3B"
+            android:text="UPDATE"
+            android:textColor="#000000"
+            android:textColorHighlight="#FFEB3B"
+            android:textColorHint="#FFEB3B"
+            android:textColorLink="#FFEB3B"
+            app:rippleColor="#FFEB3B"
+            app:strokeColor="#FFEB3B" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnbackprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:background="#FFEB3B"
+        android:clickable="true"
+        android:src="@drawable/round_arrow_back_24"
+        app:backgroundTint="#FFEB3B" />
 
 </FrameLayout>
+
