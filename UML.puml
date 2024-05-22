@@ -1,0 +1,289 @@
+@startuml
+class fragments.ProfileFragment {
+- {static} int GALLERY_REQUEST_CODE
+- ImageView ivUser
+~ ActivityResultLauncher<Intent> resultLauncher
+~ EditText etFirstName
+- Button btnUpdate
+- FirebaseServices fbs
+- Utlis utils
+- String imageStr
+- boolean flagAlreadyFilled
+- Button btnback
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} ProfileFragment newInstance(String,String)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void fillUserData()
++ void uploadImage(Uri)
++ void openGallery()
++ void onCreate(Bundle)
++ void onActivityResult(int,int,Intent)
++ void onStart()
+- void init()
+- void gotoallstories()
+}
+
+
+class Database.FirebaseServices {
+- {static} FirebaseServices instance
+- FirebaseAuth auth
+- FirebaseFirestore fire
+- FirebaseStorage storage
+- User1 currentUser
+- Uri selectedImageURL
++ User1 getCurrentUser()
++ void setCurrentUser(User1)
++ Uri getSelectedImageURL()
++ void setSelectedImageURL(Uri)
++ {static} FirebaseServices getInstance()
++ FirebaseAuth getAuth()
++ FirebaseFirestore getFire()
++ FirebaseStorage getStorage()
++ {static} FirebaseServices reloadInstance()
++ boolean updateUser(User1)
+}
+
+
+class com.example.thestar.ExampleInstrumentedTest {
++ void useAppContext()
+}
+
+class Utilites.StoryAdapter {
+~ Context context
+~ ArrayList<Story> strList
+- OnItemClickListener itemClickListener
++ MyViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyViewHolder,int)
++ int getItemCount()
++ void setOnItemClickListener(OnItemClickListener)
+}
+
+
+class Utilites.StoryAdapter$MyViewHolder {
+~ String ratingString
+~ TextView tvName
+~ ImageView ivstr
+~ RatingBar etRating
+}
+
+interface Utilites.StoryAdapter$OnItemClickListener {
+~ void onItemClick(int)
+}
+
+class com.example.thestar.MainActivity {
+- Stack<Fragment> fragmentStack
+- FirebaseServices fbs
+- User1 userData
+# void onCreate(Bundle)
+- void gotodeatails()
++ void gotoLoginfragment()
++ void go()
++ void pushFragment(Fragment)
++ User1 getUserData()
+- void signout()
+- void gotoLoginFragment()
+}
+
+
+class fragments.SignUpFragment {
+- EditText etUsername
+- Button btnSignup
+- FirebaseServices fbs
+- FloatingActionButton FAB
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} SignUpFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onStart()
+- void gotoallstoryfragment()
+- void gotologinfragment()
+}
+
+
+class fragments.AllStoriesFragment {
+- FirebaseServices fbs
+- ArrayList<Story> storieslist
+- RecyclerView rvRests
+- StoryAdapter adapter
+- SearchView srchView
+- Button probtn
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} AllStoriesFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onStart()
+- void init()
+- void applyFilter(String)
+- void showNoDataDialogue()
++ void gotoProfileFragment()
++ ArrayList<Story> getStories()
+- void gotoProfile()
+- void gotoLoginFragment()
+}
+
+
+class Database.Story {
+- String Name
+- String Description
+- String Genre
+- String Rating
+- String Photo
++ {static} Creator<Story> CREATOR
++ String getPhoto()
++ void setPhoto(String)
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ String getGenre()
++ void setGenre(String)
++ String getRating()
++ void setRating(String)
++ String toString()
++ int describeContents()
++ void writeToParcel(Parcel,int)
+}
+
+
+class fragments.ForgotPasswordFragment {
+- EditText etforgotp
+- Button btnforgotp
+- FirebaseServices fbs
+- FloatingActionButton FAB
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} ForgotPasswordFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onStart()
+}
+
+
+class fragments.LoginFragment {
+- TextView ForgotLink
+- EditText usernamel
+- Button btnlogin
+- FirebaseServices fbs
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} LoginFragment newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onStart()
+- void gotoAddStoryFragment()
+- void gotoSignUpFragment()
+- void gotoForgotPasswordFragment()
+- void gotoallstoriesfragment()
+}
+
+
+class fragments.AddStoryFragment {
+~ Utlis utlis
+- EditText etnameAdd
+- RatingBar etRating
+- FirebaseServices fbs
+- Button btnAdd
+- ImageView imgstr
+- MultiAutoCompleteTextView multiAutoCompleteGenre
+- {static} int GALLERY_REQUEST_CODE
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} AddStoryFragment newInstance(String,String)
++ void onStart()
+- void init()
+- void addToFirestore()
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void openGallery()
++ void onActivityResult(int,int,Intent)
+- void gotoallstories()
+}
+
+
+class fragments.StoriesDetails {
+- {static} int PERMISSION_SEND_SMS
+- {static} int REQUEST_CALL_PERMISSION
+- FirebaseServices fbs
+- TextView name
+- ImageView ivstrPhoto
+- Story myStory
+- Button btnWhatsapp
+- boolean isEnlarged
+- EditText message
+- Uri uri
+- String imgurl
+- RatingBar rating
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
++ {static} StoriesDetails newInstance(String,String)
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onStart()
+- void connectcomponents()
+}
+
+
+class Utilites.Utlis {
+- {static} Utlis instance
+- FirebaseServices fbs
+- String imageStr
++ {static} Utlis getInstance()
++ void showMessageDialog(Context,String)
++ void uploadImage(Context,Uri)
+}
+
+
+class Database.User1 {
+- String firstName
+- String lastName
+- String username
+- String photo
++ String getFirstName()
++ void setFirstName(String)
++ String getLastName()
++ void setLastName(String)
++ String getUsername()
++ void setUsername(String)
++ String getPhoto()
++ void setPhoto(String)
++ String toString()
+}
+
+
+class com.example.thestar.ExampleUnitTest {
++ void addition_isCorrect()
+}
+
+
+
+androidx.fragment.app.Fragment <|-- fragments.ProfileFragment
+Utilites.Adapter <|-- Utilites.StoryAdapter
+Utilites.StoryAdapter +.. Utilites.StoryAdapter$MyViewHolder
+Utilites.ViewHolder <|-- Utilites.StoryAdapter$MyViewHolder
+Utilites.StoryAdapter +.. Utilites.StoryAdapter$OnItemClickListener
+androidx.appcompat.app.AppCompatActivity <|-- com.example.thestar.MainActivity
+androidx.fragment.app.Fragment <|-- fragments.SignUpFragment
+androidx.fragment.app.Fragment <|-- fragments.AllStoriesFragment
+android.os.Parcelable <|.. Database.Story
+androidx.fragment.app.Fragment <|-- fragments.ForgotPasswordFragment
+androidx.fragment.app.Fragment <|-- fragments.LoginFragment
+androidx.fragment.app.Fragment <|-- fragments.AddStoryFragment
+androidx.fragment.app.Fragment <|-- fragments.StoriesDetails
+@enduml
