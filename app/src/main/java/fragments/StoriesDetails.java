@@ -19,6 +19,7 @@ import android.widget.TextView;
 import Database.FirebaseServices;
 
 import com.example.thestar.R;
+import com.squareup.picasso.Picasso;
 
 import Database.Story;
 
@@ -135,7 +136,13 @@ public class StoriesDetails extends Fragment {
                 float ratingValue = Float.parseFloat(ratingStr); // Convert the String to a float
                 rating.setRating(ratingValue); // Set the rating of the RatingBar
 
-
+                if (myStory.getPhoto() == null || myStory.getPhoto().isEmpty())
+                {
+                    Picasso.get().load(R.drawable.ic_launcher_1_foreground).into(ivstrPhoto);
+                }
+                else {
+                    Picasso.get().load(myStory.getPhoto()).into(ivstrPhoto);
+                }
             }
         }
         btnWhatsapp = getView().findViewById(R.id.shareButton);
