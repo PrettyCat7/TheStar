@@ -1,4 +1,4 @@
-package fragments;
+package com.example.thestar.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -21,11 +21,11 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import Database.FirebaseServices;
+import com.example.thestar.Database.FirebaseServices;
+import com.example.thestar.Database.Story;
 import com.example.thestar.MainActivity;
 import com.example.thestar.R;
-import Database.Story;
-import Utilites.Utlis;
+import com.example.thestar.Utilites.Utlis;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;

@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,12 +16,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Stack;
 
-import Database.FirebaseServices;
-import Database.User1;
-import fragments.AllStoriesFragment;
-import fragments.ForgotPasswordFragment;
-import fragments.LoginFragment;
-import fragments.StoriesDetails;
+import com.example.thestar.Database.FirebaseServices;
+import com.example.thestar.Database.User1;
+import com.example.thestar.fragments.AllStoriesFragment;
+import com.example.thestar.fragments.ForgotPasswordFragment;
+import com.example.thestar.fragments.LoginFragment;
+import com.example.thestar.fragments.StoriesDetails;
 
 public class MainActivity extends AppCompatActivity {
     private Stack<Fragment> fragmentStack = new Stack<>();

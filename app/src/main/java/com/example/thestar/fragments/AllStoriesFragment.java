@@ -1,4 +1,4 @@
-package fragments;
+package com.example.thestar.fragments;
 
 import android.os.Bundle;
 
@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import Database.FirebaseServices;
+import com.example.thestar.Database.FirebaseServices;
 import com.example.thestar.R;
-import Database.Story;
-import Utilites.StoryAdapter;
+import com.example.thestar.Database.Story;
+import com.example.thestar.Utilites.StoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -120,6 +120,7 @@ public class AllStoriesFragment extends Fragment {
         storieslist = getStories();
         adapter = new StoryAdapter(getActivity(), storieslist);
         filteredList = new ArrayList<>();
+        /*
         adapter.setOnItemClickListener(new StoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -134,7 +135,7 @@ public class AllStoriesFragment extends Fragment {
                 ft.replace(R.id.frameLayout,sd);
                 ft.commit();
             }
-        });
+        }); */
         srchView = getView().findViewById(R.id.srchView);
         srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

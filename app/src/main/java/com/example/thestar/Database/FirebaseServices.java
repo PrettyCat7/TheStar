@@ -1,4 +1,4 @@
-package Database;
+package com.example.thestar.Database;
 
 import android.net.Uri;
 
@@ -9,8 +9,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-
-import java.util.ArrayList;
 
 public class FirebaseServices {
     private static FirebaseServices instance;

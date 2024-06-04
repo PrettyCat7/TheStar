@@ -1,4 +1,4 @@
-package Utilites;
+package com.example.thestar.Utilites;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +16,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-import Database.FirebaseServices;
+import com.example.thestar.Database.FirebaseServices;
 
 public class Utlis {
     private static Utlis instance;
