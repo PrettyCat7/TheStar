@@ -1,4 +1,4 @@
-package Database;
+package com.example.thestar.Database;
 
 import android.os.Parcel;
 

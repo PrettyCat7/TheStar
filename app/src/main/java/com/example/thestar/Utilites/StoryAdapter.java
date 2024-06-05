@@ -1,6 +1,7 @@
-package Utilites;
+package com.example.thestar.Utilites;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,61 +10,57 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thestar.Database.FirebaseServices;
+import com.example.thestar.Database.Story;
+import com.example.thestar.Database.User1;
+import com.example.thestar.MainActivity;
 import com.example.thestar.R;
+import com.example.thestar.fragments.StoriesDetails;
 import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
 
-import Database.Story;
-
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder> {
     Context context;
     ArrayList<Story> strList;
-
-    private OnItemClickListener itemClickListener;
-
+    private FirebaseServices fbs;
 
     public StoryAdapter(Context context, ArrayList<Story> strList) {
         this.context = context;
         this.strList = strList;
+        this.fbs = fbs;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.str_item, parent, false);
-        return new MyViewHolder(v);
+        return new StoryAdapter.MyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Story str = strList.get(position);
-        /*
-        if (holder.etRating != null) {
-            holder.ratingString = String.valueOf(holder.etRating.getRating());
-        } else {
-            Log.d("DEBUG", "holder.etRating is null");
-        }*/
 
-// HERE CRASH
-
-       // holder.ratingString = String.valueOf(holder.etRating.getRating());
-// HERE CRASH
         holder.ratingString = String.valueOf(holder.etRating.getRating());
         holder.etRating.setIsIndicator(true);
 
         holder.tvName.setText(str.getName());
         holder.tvDescription.setText(str.getDescription());
-        // HERE ALSO CRASH
         holder.tvGenre.setText(str.getGenre());
-        //
+
         holder.tvName.setOnClickListener(v -> {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClick(position);
-            }
+            Bundle args = new Bundle();
+            args.putParcelable("story", str); // or use Parcelable for better performance
+            StoriesDetails sd = new StoriesDetails();
+            sd.setArguments(args);
+            FragmentTransaction ft = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout, sd);
+            ft.commit();
         });
         if (str.getPhoto() == null || str.getPhoto().isEmpty()) {
             Picasso.get().load(R.drawable.ic_launcher_foreground).into(holder.ivstr);
@@ -94,12 +91,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.MyViewHolder
 
         }
     }
-
+/*
     public interface OnItemClickListener {
         void onItemClick(int position);
-    }
+    } */
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    /*
+    public void setOnItemClickListener(StoryAdapter.OnItemClickListener listener) {
         this.itemClickListener = listener;
-    }
+    } */
 }

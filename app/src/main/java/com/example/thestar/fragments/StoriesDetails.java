@@ -1,4 +1,4 @@
-package fragments;
+package com.example.thestar.fragments;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,12 +16,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import Database.FirebaseServices;
+import com.example.thestar.Database.FirebaseServices;
 
+import com.example.thestar.Database.Story;
 import com.example.thestar.R;
 import com.squareup.picasso.Picasso;
-
-import Database.Story;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,4 +1,4 @@
-package fragments;
+package com.example.thestar.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.thestar.Database.FirebaseServices;
+import com.example.thestar.Database.User1;
+import com.example.thestar.Utilites.Utlis;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
@@ -31,17 +34,12 @@ import com.example.thestar.R;
 
 import java.util.UUID;
 
-import Database.FirebaseServices;
-import Database.User1;
-import Utilites.Utlis;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-
 
     private static final int GALLERY_REQUEST_CODE = 123;
     private ImageView ivUser;
@@ -90,7 +88,76 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        init();
 
+
+    }
+
+    private void init() {
+        fbs = FirebaseServices.getInstance();
+        etFirstName = getView().findViewById(R.id.etFirstnameUserDetailsEdit);
+        etLastName = getView().findViewById(R.id.etLastnameUserDetailsEdit);
+        btnback = getView().findViewById(R.id.btnbackprofile);
+        //
+        ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
+        //
+        btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoallstories();
+            }
+        });
+
+
+        utils = utils.getInstance();
+        if (imageStr == null) {
+            Picasso.get().load(R.drawable.ic_launcher_foreground).into(ivUser);
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Data validation
+                    String firstname = etFirstName.getText().toString();
+                    String lastname = etLastName.getText().toString();
+                    if (firstname.trim().isEmpty() || lastname.trim().isEmpty()) {
+
+                        Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
+                        User1 current = fbs.getCurrentUser();
+                        if (current != null) {
+                            if (!current.getFirstName().equals(firstname) ||
+                                    !current.getLastName().equals(lastname) ||
+                                    !current.getPhoto().equals(fbs.getSelectedImageURL().toString())) {
+                                User1 user;
+                                if (fbs.getSelectedImageURL() != null)
+                                    user = new User1(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), fbs.getSelectedImageURL().toString());
+                                else
+                                    user = new User1(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), "");
+
+                                fbs.updateUser(user);
+                                utils.showMessageDialog(getActivity(), "Data updated succesfully!");
+                                fbs.reloadInstance();
+                            } else {
+                                utils.showMessageDialog(getActivity(), "No changes!");
+                            }
+                        }
+                    }
+                }
+            });
+            ivUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openGallery();
+                }
+            });
+            fillUserData();
+            flagAlreadyFilled = true;
+        }
+
+
+    }
     private void fillUserData() {
         if (flagAlreadyFilled)
             return;
@@ -173,76 +240,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        init();
 
-
-    }
-
-    private void init() {
-        fbs = FirebaseServices.getInstance();
-        etFirstName = getView().findViewById(R.id.etFirstnameUserDetailsEdit);
-        etLastName = getView().findViewById(R.id.etLastnameUserDetailsEdit);
-        btnback = getView().findViewById(R.id.btnbackprofile);
-        //
-        ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
-        //
-        btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
-        btnback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gotoallstories();
-            }
-        });
-
-
-        utils = utils.getInstance();
-        if (imageStr == null) {
-            Picasso.get().load(R.drawable.ic_launcher_foreground).into(ivUser);
-            btnUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Data validation
-                    String firstname = etFirstName.getText().toString();
-                    String lastname = etLastName.getText().toString();
-                    if (firstname.trim().isEmpty() || lastname.trim().isEmpty()) {
-
-                        Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
-                        User1 current = fbs.getCurrentUser();
-                        if (current != null) {
-                            if (!current.getFirstName().equals(firstname) ||
-                                    !current.getLastName().equals(lastname) ||
-                                    !current.getPhoto().equals(fbs.getSelectedImageURL().toString())) {
-                                User1 user;
-                                if (fbs.getSelectedImageURL() != null)
-                                    user = new User1(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), fbs.getSelectedImageURL().toString());
-                                else
-                                    user = new User1(firstname, lastname, fbs.getAuth().getCurrentUser().getEmail(), "");
-
-                                fbs.updateUser(user);
-                                utils.showMessageDialog(getActivity(), "Data updated succesfully!");
-                                fbs.reloadInstance();
-                            } else {
-                                utils.showMessageDialog(getActivity(), "No changes!");
-                            }
-                        }
-                    }
-                }
-            });
-            ivUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openGallery();
-                }
-            });
-            fillUserData();
-            flagAlreadyFilled = true;
-        }
-
-
-    }
 
     private void gotoallstories() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

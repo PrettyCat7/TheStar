@@ -1,4 +1,4 @@
-package fragments;
+package com.example.thestar.fragments;
 
 import android.os.Bundle;
 
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import Database.FirebaseServices;
+import com.example.thestar.Database.FirebaseServices;
 import com.example.thestar.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
