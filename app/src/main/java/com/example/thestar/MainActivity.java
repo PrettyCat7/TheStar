@@ -119,4 +119,5 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
         ft.commit();
     }
+
 }

@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.SearchView;
-import android.widget.Toast;
+
 
 import com.example.thestar.Database.FirebaseServices;
 import com.example.thestar.R;
@@ -23,6 +23,7 @@ import com.example.thestar.Database.Story;
 import com.example.thestar.Utilites.StoryAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -39,8 +40,11 @@ public class AllStoriesFragment extends Fragment {
     private ArrayList<Story> storieslist, filteredList;
     private RecyclerView rvRests;
     private StoryAdapter adapter;
-    private SearchView srchView;
     private Button probtn , btnSignout;
+    private NavigationView navigationView;
+    MenuItem a,b,c;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,6 +94,23 @@ public class AllStoriesFragment extends Fragment {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       if (item.getItemId()==R.id.action_signout){
+           fbs.getAuth().signOut();
+           gotoLoginFragment();
+           if (item.getItemId()==R.id.action_profile){
+               gotoProfile();
+           }
+           if (item.getItemId()==R.id.action_add){
+               gotoLAddstory();
+           }
+       }//
+        return false;
+    }//
+
+
+
+    @Override
     public void onStart() {
         super.onStart();
         init();
@@ -101,12 +122,19 @@ public class AllStoriesFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         probtn=getView().findViewById(R.id.Profile);
         btnSignout=getView().findViewById(R.id.signout);
-        btnSignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { fbs.getAuth().signOut();
 
-                gotoLoginFragment();}
-        });
+
+
+
+
+        btnSignout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fbs.getAuth().signOut();
+
+                        gotoLoginFragment();
+                    }
+                });
         probtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {gotoProfile();}
@@ -136,7 +164,7 @@ public class AllStoriesFragment extends Fragment {
                 ft.commit();
             }
         }); */
-        srchView = getView().findViewById(R.id.srchView);
+/*
         srchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -151,7 +179,7 @@ public class AllStoriesFragment extends Fragment {
             }
         });
         //((MainActivity)getActivity()).pushFragment(new CarsListFragment());
-
+*/
     }
 
     private void applyFilter(String query) {
@@ -241,6 +269,10 @@ public class AllStoriesFragment extends Fragment {
         ft.replace(R.id.frameLayout,new LoginFragment());
         ft.commit();
     }
-
+    private void gotoLAddstory() {
+        FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AddStoryFragment());
+        ft.commit();
+    }
 }
 

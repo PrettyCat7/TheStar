@@ -88,7 +88,7 @@ public class ForgotPasswordFragment extends Fragment {
         fbs=FirebaseServices.getInstance();
         etforgotp= getView().findViewById(R.id.etforgot);
         btnforgotp=getView().findViewById(R.id.btnforgot);
-        FAB=getView().findViewById(R.id.fbBack);
+        FAB=getView().findViewById(R.id.fbdetail);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

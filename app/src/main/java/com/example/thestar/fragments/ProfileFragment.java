@@ -92,8 +92,6 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
         init();
-
-
     }
 
     private void init() {
@@ -102,18 +100,17 @@ public class ProfileFragment extends Fragment {
         etLastName = getView().findViewById(R.id.etLastnameUserDetailsEdit);
         btnback = getView().findViewById(R.id.btnbackprofile);
         //
-        ivUser = getView().findViewById(R.id.ivUserUserDetailsEdit);
         //
         btnUpdate = getView().findViewById(R.id.btnUpdateUserDetailsEdit);
+        utils = utils.getInstance();
+
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoallstories();
             }
         });
-
-
-        utils = utils.getInstance();
+        ivUser = getView().findViewById(R.id.ivuserprofile);
         if (imageStr == null) {
             Picasso.get().load(R.drawable.ic_launcher_foreground).into(ivUser);
             btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +122,7 @@ public class ProfileFragment extends Fragment {
                     if (firstname.trim().isEmpty() || lastname.trim().isEmpty()) {
 
                         Toast.makeText(getActivity(), "some fields are empty", Toast.LENGTH_SHORT).show();
+
                         User1 current = fbs.getCurrentUser();
                         if (current != null) {
                             if (!current.getFirstName().equals(firstname) ||
@@ -165,6 +163,7 @@ public class ProfileFragment extends Fragment {
         if (current != null) {
             etFirstName.setText(current.getFirstName());
             etLastName.setText(current.getLastName());
+
             if (current.getPhoto() != null && !current.getPhoto().isEmpty()) {
                 Picasso.get().load(current.getPhoto()).into(ivUser);
                 fbs.setSelectedImageURL(Uri.parse(current.getPhoto()));
@@ -233,7 +232,6 @@ public class ProfileFragment extends Fragment {
                 final android.net.Uri imageUri = data.getData();
 
                 // Load the image into the ImageView using an asynchronous task or a library like Glide or Picasso
-                // For example, using Glide:
                 Picasso.get().load(fbs.getCurrentUser().getPhoto()).into(ivUser);
                 uploadImage(imageUri);
             }

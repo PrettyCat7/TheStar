@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class StoriesDetails extends Fragment {
     private TextView name, genre, description;
     private ImageView ivstrPhoto, imgwhatsapp;
     private Story myStory;
-    private Button btnWhatsapp;
+    private Button btnWhatsapp, FAB;
     private boolean isEnlarged = false;
     private EditText message;
     private Uri uri;
@@ -117,9 +118,17 @@ public class StoriesDetails extends Fragment {
         genre = getView().findViewById(R.id.storyGenre);
         description = getView().findViewById(R.id.storyDescription);
         rating = getView().findViewById(R.id.storyRatingD);
-
+        FAB = getView().findViewById(R.id.fbdetail);
         ivstrPhoto = getView().findViewById(R.id.storyImage);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout, new StoriesDetails());
+                ft.commit();
+            }
+        });
 
         Bundle args = getArguments();
         if (args != null) {
@@ -135,11 +144,9 @@ public class StoriesDetails extends Fragment {
                 float ratingValue = Float.parseFloat(ratingStr); // Convert the String to a float
                 rating.setRating(ratingValue); // Set the rating of the RatingBar
 
-                if (myStory.getPhoto() == null || myStory.getPhoto().isEmpty())
-                {
+                if (myStory.getPhoto() == null || myStory.getPhoto().isEmpty()) {
                     Picasso.get().load(R.drawable.ic_launcher_1_foreground).into(ivstrPhoto);
-                }
-                else {
+                } else {
                     Picasso.get().load(myStory.getPhoto()).into(ivstrPhoto);
                 }
             }
