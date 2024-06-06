@@ -7,8 +7,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.thestar.fragments.AddStoryFragment;
+import com.example.thestar.fragments.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -114,10 +119,22 @@ public class MainActivity extends AppCompatActivity {
         gotoLoginFragment();
     }
 
+
+
+
     private void gotoLoginFragment() {
         FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new ForgotPasswordFragment());
         ft.commit();
     }
-
+    private void gotoProfile() {
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new ProfileFragment());
+        ft.commit();
+    }
+    private void gotoAddstr() {
+        FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout,new AddStoryFragment());
+        ft.commit();
+    }
 }

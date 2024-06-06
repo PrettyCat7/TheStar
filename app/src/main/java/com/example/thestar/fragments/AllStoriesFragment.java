@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +43,7 @@ public class AllStoriesFragment extends Fragment {
     private RecyclerView rvRests;
     private StoryAdapter adapter;
     private Button probtn , btnSignout;
-    private NavigationView navigationView;
-    MenuItem a,b,c;
+
 
 
 
@@ -77,6 +78,20 @@ public class AllStoriesFragment extends Fragment {
         return fragment;
     }
 
+   public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getActivity().getMenuInflater();
+       inflater.inflate(R.menu.menu_main, menu);
+       return true;
+   }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId()==R.id.action_profile) gotoProfile();
+        if (item.getItemId()==R.id.action_sign_out) signout();
+        if (item.getItemId()==R.id.action_add_story) gotoLAddstory();
+        return true;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,31 +99,15 @@ public class AllStoriesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_all_stories, container, false);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-       if (item.getItemId()==R.id.action_signout){
-           fbs.getAuth().signOut();
-           gotoLoginFragment();
-           if (item.getItemId()==R.id.action_profile){
-               gotoProfile();
-           }
-           if (item.getItemId()==R.id.action_add){
-               gotoLAddstory();
-           }
-       }//
-        return false;
-    }//
-
-
 
     @Override
     public void onStart() {
@@ -273,6 +272,11 @@ public class AllStoriesFragment extends Fragment {
         FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout,new AddStoryFragment());
         ft.commit();
+    }
+    private void signout() {
+        fbs.getAuth().signOut();
+
+        gotoLoginFragment();
     }
 }
 
