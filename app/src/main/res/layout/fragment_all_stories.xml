@@ -19,14 +19,14 @@
             android:layout_width="413dp"
             android:layout_height="780dp"
             android:background="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/Profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/Profile"
-            android:layout_width="123dp"
+            android:layout_width="0dp"
             android:layout_height="56dp"
             android:background="@color/yellow"
             android:backgroundTint="#FFEB3B"
@@ -36,15 +36,50 @@
             android:textColor="#000000"
             android:textColorLink="#FFEB3B"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.948"
+            app:layout_constraintEnd_toStartOf="@id/StorySuggestion"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.108"
+            app:rippleColor="#D3C975"
+            android:layout_marginEnd="1dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="@id/Profile"
+            app:layout_constraintEnd_toStartOf="@id/StorySuggestion"
+            app:layout_constraintStart_toEndOf="@id/Profile"
+            app:layout_constraintTop_toTopOf="@id/Profile" />
+
+        <Button
+            android:id="@+id/StorySuggestion"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:background="@color/yellow"
+            android:backgroundTint="#FFEB3B"
+            android:outlineAmbientShadowColor="#FFEB3B"
+            android:outlineSpotShadowColor="#FFEB3B"
+            android:text="StorySuggest"
+            android:textColor="#000000"
+            android:textColorLink="#FFEB3B"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/signout"
+            app:layout_constraintStart_toEndOf="@id/Profile"
             app:rippleColor="#D3C975" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="@id/StorySuggestion"
+            app:layout_constraintEnd_toStartOf="@id/signout"
+            app:layout_constraintStart_toEndOf="@id/StorySuggestion"
+            app:layout_constraintTop_toTopOf="@id/StorySuggestion" />
+
         <Button
             android:id="@+id/signout"
-            android:layout_width="123dp"
+            android:layout_width="0dp"
             android:layout_height="56dp"
             android:background="@color/yellow"
             android:backgroundTint="#FFEB3B"
@@ -55,10 +90,8 @@
             android:textColorLink="#FFEB3B"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.944"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19"
-            app:rippleColor="#D3C975" />
+            app:layout_constraintStart_toEndOf="@id/StorySuggestion"
+            app:rippleColor="#D3C975"
+            android:layout_marginStart="1dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

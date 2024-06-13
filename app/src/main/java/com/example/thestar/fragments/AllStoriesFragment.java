@@ -42,7 +42,7 @@ public class AllStoriesFragment extends Fragment {
     private ArrayList<Story> storieslist, filteredList;
     private RecyclerView rvRests;
     private StoryAdapter adapter;
-    private Button probtn , btnSignout;
+    private Button probtn , btnSignout,addbtn;
 
 
 
@@ -121,7 +121,13 @@ public class AllStoriesFragment extends Fragment {
         fbs = FirebaseServices.getInstance();
         probtn=getView().findViewById(R.id.Profile);
         btnSignout=getView().findViewById(R.id.signout);
-
+        addbtn=getView().findViewById(R.id.StorySuggestion);
+addbtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        gotoLAddstory();
+    }
+});
 
 
 
